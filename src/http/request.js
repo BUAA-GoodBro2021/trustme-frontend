@@ -1,6 +1,6 @@
 import axios from "axios";
 const service = axios.create({
-    baseURL:"",
+    baseURL:"101.42.173.97:9000/api",
     timeout:0,
 })
 service.interceptors.request.use(
