@@ -1,7 +1,11 @@
 <script setup>
-import { RouterView } from 'vue-router'
+const noSpace = reactive({
+   autoInsertSpace: false,
+})
 </script>
 
 <template>
-  <RouterView />
+  <el-config-provider :button="noSpace">
+    <RouterView />
+  </el-config-provider>
 </template>

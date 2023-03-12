@@ -21,7 +21,7 @@ const router = createRouter({
           meta:{
             transition: "animate__fadeInDown"
           },
-          component: ()=>import('../views/account/LoginForm.vue')
+          component: ()=>import('../components/account/LoginForm.vue')
         },
         // 注册
         {
@@ -30,7 +30,7 @@ const router = createRouter({
           meta:{
             transition: "animate__fadeInDown"
           },
-          component: ()=>import('../views/account/RegisterForm.vue'),
+          component: ()=>import('../components/account/RegisterForm.vue'),
         },
       ]
     }

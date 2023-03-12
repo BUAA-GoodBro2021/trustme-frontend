@@ -6,12 +6,10 @@ import router from './router'
 // 导入element plus的CSS
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
-
+import './assets/reset.css'
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component);
 }
-app.use(createPinia())
-app.use(router)
-app.use(createPinia()).use(ElementPlus)
+app.use(router).use(createPinia()).use(ElementPlus)
 app.mount('#app')
