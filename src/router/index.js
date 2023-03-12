@@ -38,7 +38,7 @@ const router = createRouter({
 })
 router.beforeEach((to,from)=>{
   const state = useStateStore();
-  if(state.isAuth&&to.name!="Login"){
+  if(!state.isAuth&&to.name!="Login"&&to.name!="Register"){
     ElNotification({
       title: "很遗憾",
       message: "请先登录",
