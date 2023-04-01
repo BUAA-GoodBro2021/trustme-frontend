@@ -20,6 +20,10 @@ export const useStateStore = defineStore({
     },
     setUserInfo(userInfo){
       this.userInfo = userInfo
+    },
+    logout(){
+      this.token = ''
+      this.userInfo = ''
     }
   }
 })

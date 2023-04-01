@@ -35,7 +35,7 @@ import UserInfo from "./UserInfo.vue";
     &-right-entry{
         display: flex;
         position: relative;
-        margin-right: 20px;
+        margin-right: 30px;
     }
 }
 </style>

@@ -106,15 +106,8 @@ const login = ()=>{
 const submit = (formRef)=>{
 	console.log("FORMREF",formRef)
 	formRef.validate((valid)=>{
-		if(valid) isSliderCaptchaShow.value = true
+		if(valid) register();
 	})
-}
-// 控制人类行为验证窗口显示
-const isSliderCaptchaShow = ref(false);
-// 人类行为验证通过事件
-const onSliderCaptchaSuccess = () => {
-	isSliderCaptchaShow.value = false;
-	register();
 }
 const register = ()=>{
 	Account.register(registerForm.value).then((res)=>{

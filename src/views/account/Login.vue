@@ -1,6 +1,5 @@
 <template>
 	<div class="login-container">
-		<img src="/person.png" class="earth-img"/>
 		<div class="login-box">
 			<div class="slogen">
                <div class="slogen-title">Make Academia Visible</div>

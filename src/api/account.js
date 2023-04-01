@@ -3,7 +3,6 @@ const url = {
   login: "/user/login",
   register: "/user/register",
   findPassword: "/user/find_password",
-  humanVerification: "/user/human_verify"
 }
 // 详细参考见：https://www.axios-http.cn/docs/req_config
 export class Account {
@@ -27,12 +26,6 @@ export class Account {
   static async findPassword(data) {
     return await service(url.findPassword, {
       method: "post",
-      data,
-    });
-  }
-  static async humanVerification(data) {
-    return await service(url.humanVerification, {
-      method: "POST",
       data,
     });
   }
