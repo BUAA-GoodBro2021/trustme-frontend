@@ -4,7 +4,8 @@
       <div class="main">
          <div class="main-left">
             <div class="chart-1" style="width: 80%;height:60%;">
-
+            </div>
+            <div class="chart-3" style="width: 80%;height:60%;">
             </div>
          </div>
          <div class="main-right">
@@ -21,6 +22,7 @@ import * as echarts from 'echarts';
 import dataList from "../assets/patient_detail_list.json";
 import dimensions from "../assets/dimensions.json";
 import dcDict from "../assets/dc_dict.json";
+import performanceList from "../assets/performance_dict.json";
 const testList = [
    "testset_pid",
    "data_confidence",
@@ -37,6 +39,7 @@ const testList = [
 const pureDimensions = [];
 let chart1 = null;
 let chart2 = null;
+let chart3 = null;
 dimensions.forEach((item)=>{
    if(!testList.includes(item)){
       pureDimensions.push(item);
@@ -45,8 +48,14 @@ dimensions.forEach((item)=>{
 const initChart1 = ()=>{
    chart1 = echarts.init(document.querySelector(".chart-1"));
    let option = {
-      xAxis: {},
-      yAxis: {},
+      xAxis: {
+         max:1,
+         min:0,
+      },
+      yAxis: {
+         max:1,
+         min:0,
+      },
       toolbox: {
          feature: {
             dataZoom: {},
@@ -68,7 +77,7 @@ const initChart1 = ()=>{
          min: 0, // 需要给出数值范围，最小数值。
          max: 1, // 需要给出数值范围，最大数值。
          inRange: {
-            color: ['#1475e7', '#121122', '#e73c56'],
+            color: ['#e73c56', '#121122','#1475e7' ],
          }
       },
       series: [
@@ -79,8 +88,45 @@ const initChart1 = ()=>{
                y: ['preds_all'],
             },
             toolbar: ['dataZoom', 'brush'],
+            markLine: {
+               silent: true,
+               data: [
+                  [
+                     {
+                        name:"LOW",
+                        xAxis: dcDict.bin_min_value,
+                        yAxis: 0
+                     },
+                     {
+                        xAxis: dcDict.bin_min_value,
+                        yAxis: 1
+                     },
+                  ],
+                  [
+                     {
+                        name: 'HIGH',
+                        xAxis: dcDict.bin_max_value,
+                        yAxis: 0
+                     },
+                     {
+                        xAxis: dcDict.bin_max_value,
+                        yAxis: 1
+                     },
+                  ]
+               ]
+               },
          }
-      ]
+      ],
+      tooltip:{
+         formatter: function(params) {
+            return (
+            '性别: ' +
+            (params.data["性别"]===0?'女':'男') +'<br/>'+
+            '年龄: ' +
+            params.data["年龄"]
+            );
+         }
+      }
    };
    chart1.setOption(option);
    chart1.on('mouseover', (params)=>{
@@ -144,9 +190,14 @@ const initChart2 = ()=>{
    };
    chart2.setOption(option);
 }
+const initChart3 = ()=>{
+   chart3 = echarts.init(document.querySelector(".chart-3"));
+   
+}
 onMounted(()=>{
    initChart1();
    initChart2();
+   initChart3();
    console.log(dataList);
 })
 </script>
