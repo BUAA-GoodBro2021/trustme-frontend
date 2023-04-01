@@ -1,16 +1,25 @@
 <template>
    <div class="clear">
-      <Header/>
+      <Header />
       <div class="main">
          <div class="main-left">
-            <div class="chart-1" style="width: 80%;height:60%;">
+            <div class="chart-1" style="width: 90%;height:40%;">
             </div>
-            <div class="chart-3" style="width: 80%;height:60%;">
+            <div class="chart-3" style="width: 90%;">
+               <el-table :data="chart3" >
+                  <el-table-column prop="acc" label="ACC" />
+                  <el-table-column prop="auroc" label="AUROC" />
+                  <el-table-column prop="auprc" label="AUPRC" />
+                  <el-table-column prop="ece" label="ECE" />
+                  <el-table-column prop="aece" label="AECE" />
+                  <el-table-column prop="nll" label="NLL"/>
+               </el-table>
+            </div>
+            <div class="chart-4" style="width: 90%;height:30%;">
             </div>
          </div>
          <div class="main-right">
-            <div class="chart-2" style="width: 80%;height:80%;">
-
+            <div class="chart-2" style="width: 100%;height:85%;">
             </div>
          </div>
       </div>
@@ -35,32 +44,76 @@ const testList = [
    "i_local",
    "年龄",
    "性别"
-]
+];
 const pureDimensions = [];
 let chart1 = null;
 let chart2 = null;
-let chart3 = null;
-dimensions.forEach((item)=>{
-   if(!testList.includes(item)){
+let chart3 = ref([]);
+let chart4 = null;
+dimensions.forEach((item) => {
+   if (!testList.includes(item)) {
       pureDimensions.push(item);
    }
 })
-const initChart1 = ()=>{
+const checkRange = (value) => {
+   let temp;
+   if (value < dcDict.bin_min_value) {
+      temp = performanceList.low;
+   } else if (value > dcDict.bin_max_value) {
+      temp = performanceList.high;
+   } else {
+      temp = performanceList.middle;
+   }
+   let { acc, auroc, auprc, ece, aece, nll } = temp;
+   let str = 'ACC:' + acc + '<br/>'
+      + 'AUROC:' + auroc + '<br/>'
+      + 'AUPRC:' + auprc + '<br/>'
+      + 'ECE:' + ece + '<br/>'
+      + 'AECE:' + aece + '<br/>'
+      + 'NLL:' + nll + '<br/>';
+   return str.replaceAll("@","±");
+}
+/* LLLeo's comment: copilot，我滴超人！ */
+const countdataList = ()=>{
+   let temp = [];
+   let low = 0;
+   let middle = 0;
+   let high = 0;
+   dataList.forEach((item)=>{
+      if(item.data_confidence < dcDict.bin_min_value){
+         low++;
+      }else if(item.data_confidence > dcDict.bin_max_value){
+         high++;
+      }else{
+         middle++;
+      }
+   })
+   temp.push(low);
+   temp.push(middle);
+   temp.push(high);
+   return temp;
+}
+const initChart1 = () => {
    chart1 = echarts.init(document.querySelector(".chart-1"));
-   let option = {
+   let scatterOption = {
+      title: {
+         text: '数据分布',
+         left: 'center',
+         top: 10,
+      },
       xAxis: {
-         max:1,
-         min:0,
+         max: 1,
+         min: 0,
       },
       yAxis: {
-         max:1,
-         min:0,
+         max: 1,
+         min: 0,
       },
       toolbox: {
          feature: {
             dataZoom: {},
             brush: {
-            type: ['rect', 'polygon', 'clear']
+               type: ['rect', 'polygon', 'clear']
             }
          }
       },
@@ -73,11 +126,11 @@ const initChart1 = ()=>{
       },
       visualMap: {
          show: false,
-         dimension: "classify_result", 
+         dimension: "classify_result",
          min: 0, // 需要给出数值范围，最小数值。
          max: 1, // 需要给出数值范围，最大数值。
          inRange: {
-            color: ['#e73c56', '#121122','#1475e7' ],
+            color: ['#e73c56', '#121122', '#1475e7'],
          }
       },
       series: [
@@ -93,7 +146,7 @@ const initChart1 = ()=>{
                data: [
                   [
                      {
-                        name:"LOW",
+                        name: "LOW",
                         xAxis: dcDict.bin_min_value,
                         yAxis: 0
                      },
@@ -114,26 +167,29 @@ const initChart1 = ()=>{
                      },
                   ]
                ]
-               },
+            },
          }
       ],
-      tooltip:{
-         formatter: function(params) {
+      tooltip: {
+         formatter: function (params) {
             return (
-            '性别: ' +
-            (params.data["性别"]===0?'女':'男') +'<br/>'+
-            '年龄: ' +
-            params.data["年龄"]
+               '性别: ' +
+               (params.data["性别"] === 0 ? '女' : '男') + '<br/>' +
+               '年龄: ' +
+               params.data["年龄"] + '<br/>' +
+               checkRange(params.data["data_confidence"])
             );
          }
       }
    };
-   chart1.setOption(option);
-   chart1.on('mouseover', (params)=>{
+   chart1.setOption(scatterOption);
+   /* 根据每次的testset_pid来筛选更新对应dataList */
+   chart1.on('mouseover', (params) => {
+      if(params.componentSubType!=='scatter') return;
       let category = [];
       let data = [];
-      Object.entries(dataList[params.data.testset_pid]).forEach(([key, value])=>{
-         if(!testList.includes(key)){
+      Object.entries(dataList[params.data.testset_pid]).forEach(([key, value]) => {
+         if (!testList.includes(key)) {
             category.push(key);
             data.push(value);
          }
@@ -141,7 +197,11 @@ const initChart1 = ()=>{
       chart2.setOption({
          yAxis: {
             type: 'category',
-            data: category
+            data: category,
+            axisLabel: {
+               interval: 1,
+               rotate: -5
+            }
          },
          series: [
             {
@@ -152,11 +212,13 @@ const initChart1 = ()=>{
       })
    });
 }
-const initChart2 = ()=>{
+/* LLLeo's comment: 生成scatter的对应点数据属性 */
+const initChart2 = () => {
    chart2 = echarts.init(document.querySelector(".chart-2"));
    let option = {
       title: {
-         text: '对应数据属性'
+         text: '对应数据属性',
+         left: 'center',
       },
       tooltip: {
          trigger: 'axis',
@@ -166,9 +228,6 @@ const initChart2 = ()=>{
       },
       legend: {},
       grid: {
-         left: '3%',
-         right: '4%',
-         bottom: '3%',
          containLabel: true
       },
       dataset: {
@@ -190,43 +249,119 @@ const initChart2 = ()=>{
    };
    chart2.setOption(option);
 }
-const initChart3 = ()=>{
-   chart3 = echarts.init(document.querySelector(".chart-3"));
-   
+/* LLLeo's comment: 生成中间表格 */
+const initChart3 = () => {
+   let temp = performanceList.all;
+   Object.entries(temp).forEach(([key, value]) => {
+      temp[key] = value.replaceAll("@","±");
+   })
+   chart3.value.push(temp);
 }
-onMounted(()=>{
+const initChart4 = () => {
+   chart4 = echarts.init(document.querySelector(".chart-4"));
+   let barDataList = countdataList();
+   let barOption = {
+      title: {
+         text: '置信度分布',
+         left: 'center',
+         top: 10,
+      },
+      xAxis:{
+         type:"category",
+         data:["低置信度","中置信度","高置信度"]
+      },
+      yAxis:{},
+      toolbox: {
+         feature: {
+            myTool:{
+               show:true,
+               title:"切换为散点图",
+            }
+         }
+      },
+      series:[
+         {
+            type:"bar",
+            id:"total",
+            data:[
+               {
+                  value:barDataList[0],
+                  groupId:"low"
+               },
+               {
+                  value:barDataList[1],
+                  groupId:"middle"
+               },
+               {
+                  value:barDataList[2],
+                  groupId:"high"
+               }
+            ],
+            universalTransition: {
+               enabled: true,
+               seriesKey: ['low', 'middle', 'high'],
+               delay: function (idx, count) {
+                  return Math.random() * 400;
+               }
+            }
+         }
+      ]
+   }
+   chart4.setOption(barOption);
+}
+onMounted(() => {
    initChart1();
    initChart2();
    initChart3();
-   console.log(dataList);
+   initChart4();
+   window.addEventListener('resize', () => {
+      chart1.resize();
+      chart2.resize();
+      chart4.resize();
+   })
+   console.log("onMounted",dataList);
 })
 </script>
 <style lang="scss" scoped>
-.clear{
+.clear {
    height: 100vh;
 }
-.main{
+
+.main {
    margin-top: 64px;
    display: flex;
    justify-content: space-around;
    overflow: hidden;
    background-color: white;
    height: 100%;
-   &-right{
+   .main-left {
+      width: 50%;
+      height: 100%;
+      box-shadow: 0 1px 4px #00000014;
+      margin: auto;
+      .chart-1{
+         margin: auto;
+      }
+      .chart-3{
+         margin: auto;
+      }
+      .chart-4{
+         margin: auto;
+         margin-top: 20px;
+      }
+   }
+   .main-right {
       width: 50%;
       height: 100%;
       box-shadow: 0 1px 4px #00000014;
       display: flex;
       justify-content: center;
-      .chart-1{
+      margin: auto;
+      .chart-1 {
          margin: auto;
          margin-top: 20px;
       }
    }
-   &-left{
-      width: 50%;
-      height: 100%;
-      box-shadow: 0 1px 4px #00000014;
-   }
+   
 }
 </style>
