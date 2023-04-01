@@ -18,14 +18,13 @@ import UserInfo from "./UserInfo.vue";
     font-weight:500;
     width: 100%;
     background-color: white;
-    // border-bottom: #00000014 solid;
     box-shadow: 0 1px 4px #00000014;
     height: 64px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-align: center;
-    position: fixed;
+    position: sticky;
     z-index: 1145;
     &-left-entry{
         display: flex;

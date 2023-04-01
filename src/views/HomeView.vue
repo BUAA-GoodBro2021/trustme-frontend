@@ -8,7 +8,7 @@
             </div>
          </div>
          <div class="main-right">
-            <div class="chart-2" style="width: 80%;height:60%;">
+            <div class="chart-2" style="width: 80%;height:80%;">
 
             </div>
          </div>
@@ -21,8 +21,29 @@ import * as echarts from 'echarts';
 import dataList from "../assets/patient_detail_list.json";
 import dimensions from "../assets/dimensions.json";
 import dcDict from "../assets/dc_dict.json";
+const testList = [
+   "testset_pid",
+   "data_confidence",
+   "preds_all",
+   "labels",
+   "classify_result",
+   "e_global",
+   "e_local",
+   "i_global",
+   "i_local",
+   "年龄",
+   "性别"
+]
+const pureDimensions = [];
+let chart1 = null;
+let chart2 = null;
+dimensions.forEach((item)=>{
+   if(!testList.includes(item)){
+      pureDimensions.push(item);
+   }
+})
 const initChart1 = ()=>{
-   const chart1 = echarts.init(document.querySelector(".chart-1"));
+   chart1 = echarts.init(document.querySelector(".chart-1"));
    let option = {
       xAxis: {},
       yAxis: {},
@@ -54,22 +75,42 @@ const initChart1 = ()=>{
          {
             type: 'scatter',
             encode: {
-            x: ['data_confidence'],
-            y: ['preds_all'],
-            }
+               x: ['data_confidence'],
+               y: ['preds_all'],
+            },
+            toolbar: ['dataZoom', 'brush'],
          }
       ]
    };
    chart1.setOption(option);
    chart1.on('mouseover', (params)=>{
-      console.log(params.data);
+      let category = [];
+      let data = [];
+      Object.entries(dataList[params.data.testset_pid]).forEach(([key, value])=>{
+         if(!testList.includes(key)){
+            category.push(key);
+            data.push(value);
+         }
+      })
+      chart2.setOption({
+         yAxis: {
+            type: 'category',
+            data: category
+         },
+         series: [
+            {
+               type: 'bar',
+               data
+            }
+         ],
+      })
    });
 }
 const initChart2 = ()=>{
-   const chart2 = echarts.init(document.querySelector(".chart-2"));
+   chart2 = echarts.init(document.querySelector(".chart-2"));
    let option = {
       title: {
-         text: 'World Population'
+         text: '对应数据属性'
       },
       tooltip: {
          trigger: 'axis',
@@ -84,31 +125,24 @@ const initChart2 = ()=>{
          bottom: '3%',
          containLabel: true
       },
+      dataset: {
+         source: [],
+      },
       xAxis: {
          type: 'value',
-         boundaryGap: [0, 0.01]
       },
       yAxis: {
          type: 'category',
-         data: ['Brazil', 'Indonesia', 'USA', 'India', 'China', 'World']
+         data: []
       },
       series: [
          {
-            name: '2011',
             type: 'bar',
-            data: [18203, 23489, 29034, 104970, 131744, 630230]
-         },
-         {
-            name: '2012',
-            type: 'bar',
-            data: [19325, 23438, 31000, 121594, 134141, 681807]
+            data: [],
          }
       ]
    };
    chart2.setOption(option);
-   chart2.on('mouseover', (params)=>{
-      console.log(params.data);
-   });
 }
 onMounted(()=>{
    initChart1();
@@ -121,15 +155,15 @@ onMounted(()=>{
    height: 100vh;
 }
 .main{
-   height: 100%;
-   background-color: antiquewhite;
+   margin-top: 64px;
    display: flex;
    justify-content: space-around;
    overflow: hidden;
+   background-color: white;
+   height: 100%;
    &-right{
       width: 50%;
       height: 100%;
-      background-color: #fff;
       box-shadow: 0 1px 4px #00000014;
       display: flex;
       justify-content: center;
@@ -141,7 +175,6 @@ onMounted(()=>{
    &-left{
       width: 50%;
       height: 100%;
-      background-color: #fff;
       box-shadow: 0 1px 4px #00000014;
    }
 }
