@@ -452,7 +452,7 @@ const initChart4 = () => {
             },
             dataView:{},
             magicType: {
-               type: ['bar', 'line']
+               type: ['bar', 'line', 'stack']
             },
             saveAsImage:{
                type:"png",
