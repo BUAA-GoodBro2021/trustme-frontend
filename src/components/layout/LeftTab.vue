@@ -1,30 +1,35 @@
 <template>
-    <router-link to="/">
-        <img src="/trustMe.png" class="header-png"/>
-    </router-link>
+    <img src="/trustMe.png" class="header-png"/>
    <el-menu
    :default-active="activeIndex"
    mode="horizontal"
    @select="handleSelect"
    :ellipsis="false"
    >
-   <template v-for="(item,index) in rightList" :key="index">
+   <template v-for="(item,index) in leftList" :key="index">
     <el-menu-item :index="item.name">
-        {{ item.name }}
+        <router-link :to="item.link">
+            {{ item.name }}
+        </router-link>
     </el-menu-item>
    </template>
    </el-menu>
 </template>
 <script setup>
+import { useRouter } from 'vue-router';
 const activeIndex = ref("首页");
-const rightList = ref([
+const leftList = ref([
     {
         name:'首页',
         link:"/",
     },
     {
         name:'电子病历分析',
-        link:"/",
+        link:"/dataAnalysis",
+    },
+    {
+        name:'不公平性分析',
+        link:"/unfairnessAnalysis",
     },
 ])
 const handleSelect = (item)=>{

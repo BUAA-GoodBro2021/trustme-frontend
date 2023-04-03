@@ -7,7 +7,25 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      redirect: '/welcome',
+      component: HomeView,
+      children:[
+        {
+          path: '/welcome',
+          name: 'welcome',
+          component: ()=>import('../views/Welcome.vue')
+        },
+        {
+          path: '/dataAnalysis',
+          name: 'dataAnalysis',
+          component: ()=>import('../views/DataAnalysis.vue')
+        },
+        {
+          path: '/unfairnessAnalysis',
+          name: 'unfairnessAnalysis',
+          component: ()=>import('../views/UnfairnessAnalysis.vue')
+        }
+      ]
     },
     {
       path:'/account',
