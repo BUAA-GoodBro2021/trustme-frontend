@@ -430,7 +430,7 @@ const initChart1 = () => {
                      formatter: "{c}"
                   },
                   itemStyle: {
-                     color: "#f0f418"
+                     color: "#c1c413"
                   }
                },
                {
@@ -442,7 +442,7 @@ const initChart1 = () => {
                      formatter: "{c}"
                   },
                   itemStyle: {
-                     color: "#87f458"
+                     color: "#91cc75"
                   }
                }
             ],
