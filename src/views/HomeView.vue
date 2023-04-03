@@ -11,7 +11,7 @@ import Header from '../components/layout/Header.vue';
 </script>
 <style lang="scss" scoped>
 .clear {
-   height: 100vh;
+   height: 100%;
 }
 .main {
    margin-top: 16px;
