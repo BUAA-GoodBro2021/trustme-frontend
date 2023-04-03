@@ -66,12 +66,12 @@ const checkRange = (value) => {
       temp = performanceList.middle;
    }
    let { acc, auroc, auprc, ece, aece, nll } = temp;
-   let str = 'ACC:' + acc + '<br/>'
-      + 'AUROC:' + auroc + '<br/>'
-      + 'AUPRC:' + auprc + '<br/>'
-      + 'ECE:' + ece + '<br/>'
-      + 'AECE:' + aece + '<br/>'
-      + 'NLL:' + nll + '<br/>';
+   let str = '<li>ACC: ' + acc + '</li>'
+      + '<li>AUROC: ' + auroc + '</li>'
+      + '<li>AUPRC: ' + auprc + '</li>'
+      + '<li>ECE: ' + ece + '</li>'
+      + '<li>AECE: ' + aece + '</li>'
+      + '<li>NLL: ' + nll + '</li>';
    return str.replaceAll("@", "±");
 }
 /* LLLeo's comment: copilot，我滴超人！ */
@@ -170,7 +170,7 @@ const changeChart2 = (params) => {
    })
    chart2.setOption({
       title: {
-         text: '患者特征指标',
+         text: '患者各个特征指标大小',
          left: 'center',
       },
       yAxis: {
@@ -205,6 +205,10 @@ const initChart1 = () => {
          max: 1,
          min: 0,
       },
+      legend:{
+         data: ['预测正确', '预测错误'],
+         left: "10%"
+      },
       toolbox: {
          feature: {
             dataZoom: {
@@ -217,30 +221,26 @@ const initChart1 = () => {
             },
          }
       },
-      dataset: {
-         dimensions,
-         source: dataList,
-      },
-      visualMap: {
-         show: false,
-         dimension: "classify_result",
-         min: 0, // 需要给出数值范围，最小数值。
-         max: 1, // 需要给出数值范围，最大数值。
-         inRange: {
-            color: ['#e73c56', '#1475e7'],
-         }
-      },
+      dataset: [
+         {
+            dimensions,
+            source: dataList.filter((item) => item.classify_result === 1)
+         },
+         {
+            dimensions,
+            source: dataList.filter((item) => item.classify_result === 0)
+         },
+      ],
       series: [
          {
             type: 'scatter',
-            name: "scatter",
+            name: "预测正确",
             encode: {
                x: ['data_confidence'],
                y: ['preds_all'],
             },
-            toolbar: ['dataZoom', 'brush'],
+            datasetIndex: 0,
             markLine: {
-               silent: true,
                data: [
                   [
                      {
@@ -264,17 +264,66 @@ const initChart1 = () => {
                         yAxis: 1
                      },
                   ]
-               ]
+               ],
+               lineStyle:{
+                  color: 'gray',
+               },
+               symbol:['none', 0, '', ''],
             },
+            itemStyle:{
+               color: '#45c3fe',
+            }
+         },
+         {
+            type: 'scatter',
+            name: "预测错误",
+            encode: {
+               x: ['data_confidence'],
+               y: ['preds_all'],
+            },
+            datasetIndex: 1,
+            markLine: {
+               data: [
+                  [
+                     {
+                        name: "LOW",
+                        xAxis: dcDict.bin_min_value,
+                        yAxis: 0
+                     },
+                     {
+                        xAxis: dcDict.bin_min_value,
+                        yAxis: 1
+                     },
+                  ],
+                  [
+                     {
+                        name: 'HIGH',
+                        xAxis: dcDict.bin_max_value,
+                        yAxis: 0
+                     },
+                     {
+                        xAxis: dcDict.bin_max_value,
+                        yAxis: 1
+                     },
+                  ]
+               ],
+               lineStyle:{
+                  color: 'gray',
+               },
+               symbol:['none', 0, '', ''],
+            },
+            itemStyle:{
+               color: '#fe2679',
+            }
          }
       ],
       tooltip: {
          formatter: function (params) {
             return (
-               '性别: ' +
-               (params.data["性别"] === 0 ? '女' : '男') + '<br/>' +
-               '年龄: ' +
-               params.data["年龄"] + '<br/>' +
+               '<li>性别: ' +
+               (params.data["性别"] === 0 ? '女' : '男') + '</li>' +
+               '<li>年龄: ' +
+               params.data["年龄"] + '</li>' +
                checkRange(params.data["data_confidence"])
             );
          }
@@ -364,7 +413,7 @@ const initChart2 = () => {
    chart2 = echarts.init(document.querySelector(".chart-2"));
    let option = {
       title: {
-         text: '患者特征指标',
+         text: '患者各个特征指标大小',
          left: 'center',
       },
       tooltip: {
@@ -374,9 +423,9 @@ const initChart2 = () => {
          },
          formatter: function (params) {
             return (
-               params[0].name + ':' +
-               params[0].data + '<br/>' +
-               'e_local:' + dataList[0].e_local[params[0].dataIndex]
+               '<li>'+params[0].name + ': ' +
+               params[0].data + '</li>' +
+               '<li>e_local: ' + dataList[0].e_local[params[0].dataIndex] + '</li>'
             );
          }
       },
@@ -483,13 +532,12 @@ const initChart4 = () => {
       ],
       tooltip: {
          formatter: function (params) {
-            console.log("PPP1", params);
             return (
-               params.data[0] + '<br/>' +
-               'i_global: ' +
-               params.data[1] + '<br/>' +
-               'e_global: ' +
-               params.data[2]
+               params.data[0] + '</br>' +
+               '<li>i_global: ' +
+               params.data[1].toFixed(4) + '</li>' +
+               '<li>e_global: ' +
+               params.data[2] + '</li>'
             );
          }
       }
