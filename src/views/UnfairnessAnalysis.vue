@@ -13,6 +13,7 @@
 <script setup>
 import * as echarts from 'echarts';
 import resList from "../assets/response.json";
+import {ECHART_COMMON_COLOR} from "../assets/common.js";
 let chart1 = null;
 let chart2 = null;
 let chart3 = null;
@@ -97,6 +98,7 @@ const initChart1 = ()=>{
          left:"center",
          subtext:"Age"
       },
+      color: ECHART_COMMON_COLOR,
       xAxis: {
          type:"category",
          data:genarrList(0.01,1,0.01),
@@ -147,6 +149,7 @@ const initChart2 = ()=>{
          left:"center",
          subtext:"Age"
       },
+      color: ECHART_COMMON_COLOR,
       xAxis: {
          type:"category",
          data:genarrList(0.01,1,0.01),

@@ -3,7 +3,17 @@
       <div class="chart-1" style="width: 90%;height:40%;">
       </div>
       <div class="chart-1-btn">
-         <el-button type="primary" @click="handleClick">{{ chart1Title }}</el-button>
+         <button class="btn btn-primary btn-snake-border" @click="handleClick">
+            <div class="btn-borders">
+               <div class="border-top"></div>
+               <div class="border-right"></div>
+               <div class="border-bottom"></div>
+               <div class="border-left"></div>
+            </div>
+            <span>
+               {{ chart1Title }}
+            </span>
+         </button>
       </div>
       <div class="chart-3" style="width: 90%;">
          <el-table :data="chart3">
@@ -30,6 +40,7 @@ import dataList from "../assets/patient_detail_list.json";
 import dimensions from "../assets/dimensions.json";
 import dcDict from "../assets/dc_dict.json";
 import performanceList from "../assets/performance_dict.json";
+import {ECHART_COMMON_COLOR} from "../assets/common.js";
 const testList = [
    "testset_pid",
    "data_confidence",
@@ -41,6 +52,9 @@ const testList = [
    "i_global",
    "i_local",
 ];
+const barColorList = [
+   "#e73c56","#c1c413","#91cc75"
+]
 const pureDimensions = dimensions.filter((item) => !testList.includes(item));
 let chart1 = null;
 let chart2 = null;
@@ -51,7 +65,7 @@ let scatterOption = {};
 let barOption = {};
 let rectOption = {};
 const chart1Title = ref('数据总览');
-
+const btnColor = ref("#45c3fe")
 /* LLLeo's comment: 工具函数 */
 
 const checkRange = (value) => {
@@ -96,12 +110,15 @@ const handleClick = () => {
    if (chart1CurrentOption === scatterOption) {
       chart1CurrentOption = barOption;
       chart1Title.value = '频次分析';
+      btnColor.value = "#c1c413";
    } else if (chart1CurrentOption === barOption) {
       chart1CurrentOption = rectOption;
       chart1Title.value = '散点分布';
+      btnColor.value = "#16ba79";
    } else {
       chart1CurrentOption = scatterOption;
       chart1Title.value = '数据总览';
+      btnColor.value = "#45c3fe";
    }
    chart1.setOption(chart1CurrentOption, true);
 }
@@ -151,6 +168,7 @@ const changeChart2 = (params) => {
             text: `${params.name}-预测成功患者综合特征指标`,
             left: 'center',
          },
+         color:params.color,
          yAxis: {
             type: 'category',
             data: category,
@@ -179,6 +197,7 @@ const changeChart2 = (params) => {
             text: '患者各个特征指标大小',
             left: 'center',
          },
+         color:params.color,
          yAxis: {
             type: 'category',
             data: category,
@@ -215,6 +234,7 @@ const changeChart2 = (params) => {
             text: `对应范围内预测成功患者综合特征指标`,
             left: 'center',
          },
+         color:params.color,
          yAxis: {
             type: 'category',
             data: category,
@@ -239,6 +259,7 @@ const changeChart2 = (params) => {
 const initChart1 = () => {
    chart1 = echarts.init(document.querySelector(".chart-1"));
    scatterOption = {
+      color:ECHART_COMMON_COLOR,
       title: {
          text: '散点分布',
          left: 'center',
@@ -365,6 +386,14 @@ const initChart1 = () => {
          }
       ],
       tooltip: {
+         show: true,
+         enterable: true, // 鼠标可进入提示框浮层中
+         axisPointer: {
+            type: "cross",
+            crossStyle: {
+               color: "#999",
+            },
+         },
          formatter: function (params) {
             return (
                '<li>性别: ' +
@@ -412,7 +441,7 @@ const initChart1 = () => {
                      formatter: "{c}"
                   },
                   itemStyle: {
-                     color: "#e73c56"
+                     color: barColorList[0]
                   }
                },
                {
@@ -424,7 +453,7 @@ const initChart1 = () => {
                      formatter: "{c}"
                   },
                   itemStyle: {
-                     color: "#c1c413"
+                     color: barColorList[1]
                   }
                },
                {
@@ -436,7 +465,7 @@ const initChart1 = () => {
                      formatter: "{c}"
                   },
                   itemStyle: {
-                     color: "#91cc75"
+                     color: barColorList[2]
                   }
                }
             ],
@@ -455,6 +484,7 @@ const initChart1 = () => {
          text: '频次分析',
          left: 'center',
       },
+      color:ECHART_COMMON_COLOR,
       xAxis: {
          scale: true,
       },
@@ -478,6 +508,7 @@ const initChart1 = () => {
          {
             data: dcDict.dc_range,
             type: 'custom',
+            color: ECHART_COMMON_COLOR[1],
             renderItem: (params, api) => {
                let yVlaue = api.value(2);
                let start = api.coord([api.value(0), yVlaue]);
@@ -560,6 +591,7 @@ const initChart2 = () => {
          text: '患者各个特征指标大小',
          left: 'center',
       },
+      color:ECHART_COMMON_COLOR,
       tooltip: {
          trigger: 'axis',
          axisPointer: {
@@ -624,6 +656,7 @@ const initChart4 = () => {
          text: '全局特征重要性与存在比率',
          left: 'center',
       },
+      color:ECHART_COMMON_COLOR.slice(5,7),
       dataset: [
          {
             dimensions: ["name", "i_global", "e_global"],
@@ -724,6 +757,93 @@ onMounted(() => {
          justify-content: center;
          position: relative;
          top: -20px;
+         .btn {
+            $primary-color: v-bind(btnColor);
+            position: relative;
+            padding: 0.5rem 1rem;
+            font-family: Lato, sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            text-decoration: none;
+            background-color: white;
+            border: transparent;
+            outline: transparent;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+            overflow: hidden;
+
+            &-primary {
+               color: white;
+               background-color: $primary-color;
+            }
+
+            &-snake-border {
+               .btn-borders {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+
+                  .border-top {
+                  position: absolute;
+                  top: 0;
+                  width: 100%;
+                  height: 2px;
+                  background: linear-gradient(to right, transparent, white);
+                  animation: moveHorizontally 2s linear infinite;
+                  }
+
+                  .border-right {
+                  position: absolute;
+                  right: 0;
+                  width: 2px;
+                  height: 100%;
+                  background: linear-gradient(to bottom, transparent, white);
+                  animation: moveVertically 2s 1s linear infinite;
+                  }
+
+                  .border-bottom {
+                  position: absolute;
+                  bottom: 0;
+                  width: 100%;
+                  height: 2px;
+                  background: linear-gradient(to left, transparent, white);
+                  animation: moveHorizontally 2s linear reverse infinite;
+                  }
+
+                  .border-left {
+                  position: absolute;
+                  left: 0;
+                  width: 2px;
+                  height: 100%;
+                  background: linear-gradient(to top, transparent, white);
+                  animation: moveVertically 2s 1s linear reverse infinite;
+                  }
+               }
+            }
+            }
+
+            @keyframes moveHorizontally {
+            from {
+               transform: translateX(-100%);
+            }
+
+            to {
+               transform: translateX(100%);
+            }
+            }
+
+            @keyframes moveVertically {
+            from {
+               transform: translateY(-100%);
+            }
+
+            to {
+               transform: translateY(100%);
+            }
+            }
       }
 
       .chart-3 {
