@@ -55,7 +55,11 @@ let chart4 = null;
 let chart1CurrentOption = {};
 let scatterOption = {};
 let barOption = {};
+let rectOption = {};
 const chart1Title = ref('数据总览');
+
+/* LLLeo's comment: 工具函数 */
+
 const checkRange = (value) => {
    let temp;
    if (value < dcDict.bin_min_value) {
@@ -95,8 +99,16 @@ const countdataList = () => {
    return temp;
 }
 const handleClick = () => {
-   chart1CurrentOption = chart1CurrentOption === scatterOption ? barOption : scatterOption;
-   chart1Title.value = chart1Title.value === '数据总览' ? '散点分布' : '数据总览';
+   if(chart1CurrentOption === scatterOption) {
+      chart1CurrentOption = barOption;
+      chart1Title.value = '频次分析';
+   } else if(chart1CurrentOption === barOption) {
+      chart1CurrentOption = rectOption;
+      chart1Title.value = '散点分布';
+   } else{
+      chart1CurrentOption = scatterOption;
+      chart1Title.value = '数据总览';
+   }
    chart1.setOption(chart1CurrentOption, true);
 }
 const geteSource = (arr_i, arr_e) => {
@@ -123,7 +135,8 @@ const checkConfidence = (value, name) => {
 const changeChart2 = (params) => {
    let category = [];
    let data = [];
-   if (params.componentSubType !== 'scatter') {
+   console.log("params", params);
+   if (params.componentSubType == "bar") {
       for (let i = 0; i < dataList.length; i++) {
          let temp = dataList[i];
          if (temp.classify_result === 1 && checkConfidence(temp.data_confidence, params.name)) {
@@ -157,38 +170,76 @@ const changeChart2 = (params) => {
          ],
       })
       return;
-   }
+   }else if(params.componentSubType == "scatter"){
+      Object.entries(dataList[params.data.testset_pid]).forEach(([key, value]) => {
+         if (key === 'classify_result' && value === 1) {
 
-   Object.entries(dataList[params.data.testset_pid]).forEach(([key, value]) => {
-      if (key === 'classify_result' && value === 1) {
-
-      }
-      if (!testList.includes(key)) {
-         category.push(key);
-         data.push(value);
-      }
-   })
-   chart2.setOption({
-      title: {
-         text: '患者各个特征指标大小',
-         left: 'center',
-      },
-      yAxis: {
-         type: 'category',
-         data: category,
-         axisLabel: {
-            interval: 1,
-            rotate: -5
          }
-      },
-      series: [
-         {
-            type: 'bar',
-            data
+         if (!testList.includes(key)) {
+            category.push(key);
+            data.push(value);
+         }
+      })
+      chart2.setOption({
+         title: {
+            text: '患者各个特征指标大小',
+            left: 'center',
          },
-      ],
-   })
+         yAxis: {
+            type: 'category',
+            data: category,
+            axisLabel: {
+               interval: 1,
+               rotate: -5
+            }
+         },
+         series: [
+            {
+               type: 'bar',
+               data
+            },
+         ],
+      })
+   }else if(params.componentSubType == "custom"){
+      let from = params.data[0];
+      let to = params.data[1];
+      for (let i = 0; i < dataList.length; i++) {
+         let temp = dataList[i];
+         if (temp.classify_result === 1 && temp.data_confidence >= from && temp.data_confidence <= to) {
+            Object.entries(temp).forEach(([key, value]) => {
+               if (!testList.includes(key)) {
+                  category.push(key);
+                  data.push(value);
+               }
+            })
+            break;
+         }
+      }
+      chart2.setOption({
+         title: {
+            text: `对应范围内预测成功患者综合特征指标`,
+            left: 'center',
+         },
+         yAxis: {
+            type: 'category',
+            data: category,
+            axisLabel: {
+               interval: 1,
+               rotate: -5
+            }
+         },
+         series: [
+            {
+               type: 'bar',
+               data
+            },
+         ],
+      })
+   }
 };
+
+/* LLLeo's comment: 初始化图表 */
+
 const initChart1 = () => {
    chart1 = echarts.init(document.querySelector(".chart-1"));
    scatterOption = {
@@ -403,12 +454,109 @@ const initChart1 = () => {
          }
       ]
    };
+   rectOption = {
+      title: {
+         text: '频次分析',
+         left: 'center',
+      },
+      xAxis:{
+         scale:true,
+      },
+      yAxis: {
+         max: 100,
+         min: 0,
+      },
+      toolbox: {
+         feature: {
+            dataZoom: {
+               yAxisIndex: 'none'
+            },
+            dataView:{},
+            saveAsImage:{
+               type:"png",
+               title:"Save as PNG",
+            },
+         }
+      },
+      series:[
+         {
+            data:dcDict.dc_range,
+            type: 'custom',
+            renderItem: (params,api)=>{
+               let yVlaue = api.value(2);
+               let start = api.coord([api.value(0), yVlaue]);
+               let size = api.size([api.value(1) - api.value(0), yVlaue]);
+               let style = api.style();
+               return {
+                  type: 'rect',
+                  shape:{
+                     x: start[0],
+                     y: start[1],
+                     width: size[0],
+                     height: size[1],
+                  },
+                  style,
+               }
+            },
+            label:{
+               show:true,
+               position:'top',
+            },
+            markLine: {
+               data: [
+                  [
+                     {
+                        name: "LOW",
+                        xAxis: dcDict.bin_min_value,
+                        yAxis: 0
+                     },
+                     {
+                        xAxis: dcDict.bin_min_value,
+                        yAxis: 100
+                     },
+                  ],
+                  [
+                     {
+                        name: 'HIGH',
+                        xAxis: dcDict.bin_max_value,
+                        yAxis: 0
+                     },
+                     {
+                        xAxis: dcDict.bin_max_value,
+                        yAxis: 100
+                     },
+                  ]
+               ],
+               lineStyle:{
+                  color: 'gray',
+               },
+               symbol:['none', 0, '', ''],
+            },
+            dimensions: ['from', 'to', 'data'],
+            encode: {
+               x: [0, 1],
+               y: 2,
+               tooltip: [0, 1, 2],
+            },
+         }
+      ],
+      tooltip: {
+         formatter: function (params) {
+            return (
+               '<li>from: ' +
+               params.data[0].toFixed(4) + '</li>' +
+               '<li>to: ' +
+               params.data[1].toFixed(4) + '</li>'
+            );
+         }
+      }
+   };
    chart1CurrentOption = scatterOption;
    chart1.setOption(chart1CurrentOption, true);
    /* 根据每次的testset_pid来筛选更新对应dataList */
    chart1.on('mouseover', changeChart2);
 }
-/* LLLeo's comment: 生成scatter的对应点数据属性 */
+/* LLLeo's comment: 生成scatter和bar的对应点数据属性 */
 const initChart2 = () => {
    chart2 = echarts.init(document.querySelector(".chart-2"));
    let option = {
@@ -471,6 +619,7 @@ const initChart3 = () => {
    })
    chart3.value.push(temp);
 }
+/* LLLeo's comment: 生成全局特征重要性与存在比率 */
 const initChart4 = () => {
    chart4 = echarts.init(document.querySelector(".chart-4"));
    let eSource = geteSource(dataList[0].i_global, dataList[0].e_global);
@@ -495,7 +644,7 @@ const initChart4 = () => {
          }
       ],
       legend: {
-         data: ["i_global", "e_global"],
+         data: ["特征重要性", "存在比率"],
          left: "5%",
       },
       toolbox: {
@@ -521,7 +670,7 @@ const initChart4 = () => {
       series: [
          {
             type: "bar",
-            name: "i_global",
+            name: "特征重要性",
             encode: {
                x: "name",
                y: "i_global",
@@ -529,7 +678,7 @@ const initChart4 = () => {
          },
          {
             type: "bar",
-            name: "e_global",
+            name: "存在比率",
             encode: {
                x: "name",
                y: "e_global",

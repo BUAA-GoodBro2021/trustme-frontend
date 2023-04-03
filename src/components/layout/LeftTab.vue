@@ -1,4 +1,7 @@
 <template>
+    <router-link to="/">
+        <img src="/trustMe.png" class="header-png"/>
+    </router-link>
    <el-menu
    :default-active="activeIndex"
    mode="horizontal"
@@ -23,14 +26,6 @@ const rightList = ref([
         name:'电子病历分析',
         link:"/",
     },
-    {
-        name:'多模态预测',
-        link:"/",
-    },
-    {
-        name:'医学影像预测',
-        link:"/",
-    },
 ])
 const handleSelect = (item)=>{
     console.log(item);
@@ -39,5 +34,11 @@ const handleSelect = (item)=>{
 <style scoped>
 .el-menu--horizontal{
     border-bottom: none;
+}
+.header-png{
+    margin-top: 10px;
+    height: 55px;
+    width: 90px;
+    margin-left: 10px;
 }
 </style>
