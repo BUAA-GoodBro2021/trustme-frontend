@@ -133,6 +133,8 @@ const checkConfidence = (value, name) => {
    return true;
 }
 const changeChart2 = (params) => {
+   chart2.showLoading();
+   let flag = 0;
    let category = [];
    let data = [];
    console.log("params", params);
@@ -146,6 +148,7 @@ const changeChart2 = (params) => {
                   data.push(value);
                }
             })
+            flag = 1;
             break;
          }
       }
@@ -169,15 +172,12 @@ const changeChart2 = (params) => {
             },
          ],
       })
-      return;
    }else if(params.componentSubType == "scatter"){
       Object.entries(dataList[params.data.testset_pid]).forEach(([key, value]) => {
-         if (key === 'classify_result' && value === 1) {
-
-         }
          if (!testList.includes(key)) {
             category.push(key);
             data.push(value);
+            flag = 1;
          }
       })
       chart2.setOption({
@@ -212,6 +212,7 @@ const changeChart2 = (params) => {
                   data.push(value);
                }
             })
+            flag = 1;
             break;
          }
       }
@@ -236,6 +237,7 @@ const changeChart2 = (params) => {
          ],
       })
    }
+   if(flag)chart2.hideLoading();
 };
 
 /* LLLeo's comment: 初始化图表 */
