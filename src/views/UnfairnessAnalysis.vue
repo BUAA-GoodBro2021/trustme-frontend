@@ -6,6 +6,8 @@
       </div>
    </div>
    <div class="main-right">
+      <div class="chart-3" style="width: 90%;height:85%;">
+      </div>
    </div>
 </template>
 <script setup>
@@ -13,6 +15,7 @@ import * as echarts from 'echarts';
 import resList from "../assets/response.json";
 let chart1 = null;
 let chart2 = null;
+let chart3 = null;
 const dataLegend = ["bal_acc","avg_odds_diff","spd","stat_par_diff","eq_opp_diff","theil_ind",];
 const genarrList = (from,to,step)=>{
    let arr = [];
@@ -24,6 +27,7 @@ const genarrList = (from,to,step)=>{
 }
 const gendataSeries = (metric,isOrig)=>{
    let metricR = isOrig ? metric.orig_val_metrics : metric.transf_val_metrics;
+   console.log("ind",isOrig?resList.orig_lr_orig_best_ind:resList.transf_best_ind)
    let temp = Object.entries(metricR).map(([key,value],index)=>{
       if(value&&value.length){
          return{
@@ -32,6 +36,24 @@ const gendataSeries = (metric,isOrig)=>{
             smooth:true,
             name:key,
             data:value,
+            markLine:index==0?{
+               data:[
+                  {
+                     name:"bal_acc",
+                     xAxis: isOrig?resList.orig_lr_orig_best_ind:resList.transf_best_ind,
+                     lineStyle:{
+                        color:"gray",
+                        type:"dashed",
+                     },
+                     label:{
+                        formatter:"best bal_acc: 0.{c}",
+                        color:"gray",
+                        position:"middle",
+                     }
+                  }
+               ],
+               symbol: ['none', 0, '', ''],
+            }:{}
          }
       }
    })
@@ -53,18 +75,16 @@ function handlelegendChange(params) {
          legend:{
             selected,
          },
-            yAxis: [
+         yAxis: [
             {
                type:"value",
                name:"bal_acc",
-               max:1,
             },
             {
                type:"value",
                name:params.name,
-               max:1,
             }
-         ]
+         ],
       };
       chart1.setOption(option);
       chart2.setOption(option);
@@ -169,9 +189,17 @@ const initChart2 = ()=>{
    chart2.setOption(option);
    chart2.on('legendselectchanged', handlelegendChange);
 }
+const initChart3 = ()=>{
+   chart3= echarts.init(document.querySelector('.chart-3'));
+   let option = {
+
+   };
+   chart3.setOption(option);
+}
 onMounted(() => {
    initChart1();
    initChart2();
+   initChart3();
 })
 </script>
 <style lang="scss" scoped>

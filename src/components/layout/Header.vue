@@ -25,7 +25,6 @@ import UserInfo from "./UserInfo.vue";
     align-items: center;
     text-align: center;
     position: sticky;
-    z-index: 1145;
     &-left-entry{
         display: flex;
         position: relative;
