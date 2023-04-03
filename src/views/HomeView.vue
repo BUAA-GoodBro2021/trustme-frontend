@@ -474,7 +474,7 @@ const initChart3 = () => {
 const initChart4 = () => {
    chart4 = echarts.init(document.querySelector(".chart-4"));
    let eSource = geteSource(dataList[0].i_global, dataList[0].e_global);
-   let pieOption = {
+   let barOption = {
       title: {
          text: '全局特征重要性与存在比率',
          left: 'center',
@@ -494,6 +494,10 @@ const initChart4 = () => {
             }
          }
       ],
+      legend: {
+         data: ["i_global", "e_global"],
+         left: "5%",
+      },
       toolbox: {
          feature: {
             dataZoom: {
@@ -517,6 +521,7 @@ const initChart4 = () => {
       series: [
          {
             type: "bar",
+            name: "i_global",
             encode: {
                x: "name",
                y: "i_global",
@@ -524,6 +529,7 @@ const initChart4 = () => {
          },
          {
             type: "bar",
+            name: "e_global",
             encode: {
                x: "name",
                y: "e_global",
@@ -542,7 +548,7 @@ const initChart4 = () => {
          }
       }
    }
-   chart4.setOption(pieOption);
+   chart4.setOption(barOption);
 }
 onMounted(() => {
    initChart1();
