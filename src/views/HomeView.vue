@@ -14,7 +14,7 @@ import Header from '../components/layout/Header.vue';
    height: 100vh;
 }
 .main {
-   margin-top: 64px;
+   margin-top: 16px;
    display: flex;
    justify-content: space-around;
    overflow: hidden;

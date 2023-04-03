@@ -16,8 +16,9 @@
    </el-menu>
 </template>
 <script setup>
-import { useRouter } from 'vue-router';
-const activeIndex = ref("首页");
+import { useRoute, useRouter } from 'vue-router';
+const route = useRoute();
+const activeIndex = ref(route.name);
 const leftList = ref([
     {
         name:'首页',

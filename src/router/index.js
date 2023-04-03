@@ -12,17 +12,17 @@ const router = createRouter({
       children:[
         {
           path: '/welcome',
-          name: 'welcome',
+          name: '首页',
           component: ()=>import('../views/Welcome.vue')
         },
         {
           path: '/dataAnalysis',
-          name: 'dataAnalysis',
+          name: '电子病历分析',
           component: ()=>import('../views/DataAnalysis.vue')
         },
         {
           path: '/unfairnessAnalysis',
-          name: 'unfairnessAnalysis',
+          name: '不公平性分析',
           component: ()=>import('../views/UnfairnessAnalysis.vue')
         }
       ]

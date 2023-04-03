@@ -742,18 +742,18 @@ onMounted(() => {
       }
    }
 
-   .main-right {
-      width: 50%;
-      height: 100%;
-      box-shadow: 0 1px 4px #00000014;
-      display: flex;
-      justify-content: center;
-      margin: auto;
+.main-right {
+   width: 50%;
+   height: 100%;
+   box-shadow: 0 1px 4px #00000014;
+   display: flex;
+   justify-content: center;
+   margin: auto;
 
-      .chart-2 {
-         // margin: auto;
-         margin-top: 0;
-         margin-left: -10%;
-      }
+   .chart-2 {
+      // margin: auto;
+      margin-top: 0;
+      margin-left: -10%;
    }
+}
 </style>
