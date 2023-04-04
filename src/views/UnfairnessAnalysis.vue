@@ -112,7 +112,7 @@ function handlelegendChange(params,chartIndex) {
    });
    chart3.setOption({
       title:{
-         text:`平衡最大阈值下各特征不公平性指标`,
+         text:`模型精度最高时阈值下各特征不公平性指标`,
          left:"center",
          subtext:`${params.name}指标`,
          subtextStyle:{
@@ -200,9 +200,10 @@ const initChart1 = ()=>{
       },
       tooltip:{
          formatter: function (params) {
+            console.log("tooltip",params);
             return(
-               '<li>X : '+params.name+'</li>'+
-               '<li>Y : '+params.value.toFixed(2)+'</li>'
+               '<li>threshold : '+params.name+'</li>'+
+               '<li>'+params.seriesName+' : '+params.value.toFixed(2)+'</li>'
             )
          }
       },
@@ -252,8 +253,8 @@ const initChart2 = ()=>{
       tooltip:{
          formatter: function (params) {
             return(
-               '<li>X : '+params.name+'</li>'+
-               '<li>Y : '+params.value.toFixed(2)+'</li>'
+               '<li>threshold : '+params.name+'</li>'+
+               '<li>'+params.seriesName+' : '+params.value.toFixed(2)+'</li>'
             )
          }
       },
@@ -272,7 +273,7 @@ const initChart3 = ()=>{
    let color = ECHART_COMMON_COLOR[1]
    let option = {
       title:{
-         text:"平衡最大阈值下各特征不公平性指标",
+         text:"模型精度最高时各特征不公平性指标",
          left:"center",
          subtext:`arg_odds_diff指标`,
          subtextStyle:{
@@ -310,7 +311,16 @@ const initChart3 = ()=>{
             type:"bar",
             data:data[resList.orig_lr_orig_best_ind],
          }
-      ]
+      ],
+      tooltip:{
+         formatter:function(params){
+            console.log("tooltip",params);
+            return(
+               params.name+'<br/>'+
+               '<li>unfairness value : '+params.value.toFixed(2)+'</li>'
+            )
+         }
+      }
    };
    chart3.setOption(option,true);
 }
