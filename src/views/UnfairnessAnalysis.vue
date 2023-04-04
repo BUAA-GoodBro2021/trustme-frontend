@@ -17,7 +17,7 @@ import {ECHART_COMMON_COLOR} from "../assets/common.js";
 let chart1 = null;
 let chart2 = null;
 let chart3 = null;
-const dataLegend = ["bal_acc","avg_odds_diff","spd","stat_par_diff","eq_opp_diff","theil_ind",];
+const dataLegend = ["bal_acc","avg_odds_diff","stat_par_diff","eq_opp_diff","theil_ind",];
 const genarrList = (from,to,step)=>{
    let arr = [];
    for(let i=from;i<=to;i+=step){
@@ -122,7 +122,6 @@ const initChart1 = ()=>{
          selected:{
             bal_acc:true,
             avg_odds_diff:false,
-            spd:false,
             stat_par_diff:false,
             eq_opp_diff:false,
             theil_ind:false,
@@ -173,7 +172,6 @@ const initChart2 = ()=>{
          selected:{
             bal_acc:true,
             avg_odds_diff:false,
-            spd:false,
             stat_par_diff:false,
             eq_opp_diff:false,
             theil_ind:false,
