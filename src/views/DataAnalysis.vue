@@ -218,7 +218,7 @@ const changeChart2 = (params) => {
       let to = params.data[1];
       for (let i = 0; i < dataList.length; i++) {
          let temp = dataList[i];
-         if (temp.classify_result === 1 && temp.data_confidence >= from && temp.data_confidence <= to) {
+         if (temp.classify_result === 0 && temp.data_confidence >= from && temp.data_confidence <= to) {
             Object.entries(temp).forEach(([key, value]) => {
                if (!testList.includes(key)) {
                   category.push(key);
@@ -231,7 +231,7 @@ const changeChart2 = (params) => {
       }
       chart2.setOption({
          title: {
-            text: `对应范围内预测成功患者综合特征指标`,
+            text: `对应范围内预测失败患者综合特征指标`,
             left: 'center',
          },
          color:params.color,
