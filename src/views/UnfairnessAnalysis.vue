@@ -165,12 +165,13 @@ const initChart1 = ()=>{
    chart1 = echarts.init(document.querySelector('.chart-1'));
    let option = {
       title:{
-         text:"Orig Unfairness Metric",
+         text:"原始数据不公平性指标",
          left:"center",
          subtext:"Age"
       },
       color: ECHART_COMMON_COLOR,
       xAxis: {
+         name:"      阈值",
          type:"category",
          data:genarrList(0.01,1,0.01),
          boundaryGap: false,
@@ -183,7 +184,7 @@ const initChart1 = ()=>{
          },
          {
             type:"value",
-            name:"",
+            name:"avg_odds_diff",
             max:1,
          }
       ],
@@ -217,12 +218,13 @@ const initChart2 = ()=>{
    chart2= echarts.init(document.querySelector('.chart-2'));
    let option = {
       title:{
-         text:"Transform Unfairness Metric",
+         text:"重定义权重后数据不公平指标",
          left:"center",
          subtext:"Age"
       },
       color: ECHART_COMMON_COLOR,
       xAxis: {
+         name:"      阈值",
          type:"category",
          data:genarrList(0.01,1,0.01),
          boundaryGap: false,
@@ -235,7 +237,7 @@ const initChart2 = ()=>{
          },
          {
             type:"value",
-            name:"",
+            name:"avg_odds_diff",
             max:1,
          }
       ],

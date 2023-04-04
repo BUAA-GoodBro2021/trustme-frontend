@@ -3,17 +3,11 @@
       <div class="chart-1" style="width: 90%;height:40%;">
       </div>
       <div class="chart-1-btn">
-         <button class="btn btn-primary btn-snake-border" @click="handleClick">
-            <div class="btn-borders">
-               <div class="border-top"></div>
-               <div class="border-right"></div>
-               <div class="border-bottom"></div>
-               <div class="border-left"></div>
-            </div>
-            <span>
-               {{ chart1Title }}
-            </span>
-         </button>
+         <template v-for="(item, index) in chart1Titles">
+            <SnakeBtn @click="handleClick(index)" :btnColor="item.color">
+               {{ item.title }}
+            </SnakeBtn>
+         </template>
       </div>
       <div class="chart-3" style="width: 90%;">
          <el-table :data="chart3">
@@ -40,7 +34,8 @@ import dataList from "../assets/patient_detail_list.json";
 import dimensions from "../assets/dimensions.json";
 import dcDict from "../assets/dc_dict.json";
 import performanceList from "../assets/performance_dict.json";
-import {ECHART_COMMON_COLOR} from "../assets/common.js";
+import { ECHART_COMMON_COLOR } from "../assets/common.js";
+import SnakeBtn from '../components/basic/SnakeBtn.vue';
 const testList = [
    "testset_pid",
    "data_confidence",
@@ -53,7 +48,7 @@ const testList = [
    "i_local",
 ];
 const barColorList = [
-   "#e73c56","#c1c413","#91cc75"
+   "#e73c56", "#c1c413", "#91cc75"
 ];
 const pureDimensions = dimensions.filter((item) => !testList.includes(item));
 let chart1 = null;
@@ -64,8 +59,12 @@ let chart1CurrentOption = {};
 let scatterOption = {};
 let barOption = {};
 let rectOption = {};
-const chart1Title = ref('数据总览');
-const btnColor = ref("#45c3fe")
+const chart1Titles = ref([
+   { title: '散点分布', color: '#45c3fe' },
+   { title: '数据总览', color: '#c1c413' },
+   { title: '频次分析', color: '#16ba79' },
+]);
+
 /* LLLeo's comment: 工具函数 */
 
 const checkRange = (value) => {
@@ -106,20 +105,10 @@ const countdataList = () => {
    temp.push(high);
    return temp;
 }
-const handleClick = () => {
-   if (chart1CurrentOption === scatterOption) {
-      chart1CurrentOption = barOption;
-      chart1Title.value = '频次分析';
-      btnColor.value = "#c1c413";
-   } else if (chart1CurrentOption === barOption) {
-      chart1CurrentOption = rectOption;
-      chart1Title.value = '散点分布';
-      btnColor.value = "#16ba79";
-   } else {
-      chart1CurrentOption = scatterOption;
-      chart1Title.value = '数据总览';
-      btnColor.value = "#45c3fe";
-   }
+const handleClick = (index) => {
+   if (index === 0) chart1CurrentOption = scatterOption;
+   if (index === 1) chart1CurrentOption = barOption;
+   if (index === 2) chart1CurrentOption = rectOption;
    chart1.setOption(chart1CurrentOption, true);
 }
 const geteSource = (arr_i, arr_e) => {
@@ -146,7 +135,6 @@ const checkConfidence = (value, name) => {
 const changeChart2 = (params) => {
    chart2.showLoading();
    let flag = 0;
-   let category = [];
    let data = [];
    console.log("params", params);
    if (params.componentSubType == "bar") {
@@ -155,7 +143,6 @@ const changeChart2 = (params) => {
          if (temp.classify_result === 0 && checkConfidence(temp.data_confidence, params.name)) {
             Object.entries(temp).forEach(([key, value]) => {
                if (!testList.includes(key)) {
-                  category.push(key);
                   data.push(value);
                }
             })
@@ -168,10 +155,10 @@ const changeChart2 = (params) => {
             text: `${params.name}-预测失败患者综合特征指标`,
             left: 'center',
          },
-         color:params.color,
+         color: params.color,
          yAxis: {
             type: 'category',
-            data: category,
+            data: pureDimensions,
             axisLabel: {
                interval: 1,
                rotate: -5
@@ -187,7 +174,6 @@ const changeChart2 = (params) => {
    } else if (params.componentSubType == "scatter") {
       Object.entries(dataList[params.data.testset_pid]).forEach(([key, value]) => {
          if (!testList.includes(key)) {
-            category.push(key);
             data.push(value);
             flag = 1;
          }
@@ -197,10 +183,10 @@ const changeChart2 = (params) => {
             text: '患者各个特征指标大小',
             left: 'center',
          },
-         color:params.color,
+         color: params.color,
          yAxis: {
             type: 'category',
-            data: category,
+            data: pureDimensions,
             axisLabel: {
                interval: 1,
                rotate: -5
@@ -221,7 +207,6 @@ const changeChart2 = (params) => {
          if (temp.classify_result === 0 && temp.data_confidence >= from && temp.data_confidence <= to) {
             Object.entries(temp).forEach(([key, value]) => {
                if (!testList.includes(key)) {
-                  category.push(key);
                   data.push(value);
                }
             })
@@ -234,10 +219,10 @@ const changeChart2 = (params) => {
             text: `对应范围内预测失败患者综合特征指标`,
             left: 'center',
          },
-         color:params.color,
+         color: params.color,
          yAxis: {
             type: 'category',
-            data: category,
+            data: pureDimensions,
             axisLabel: {
                interval: 1,
                rotate: -5
@@ -258,10 +243,10 @@ const changeChart2 = (params) => {
 
 const initChart1 = () => {
    chart1 = echarts.init(document.querySelector(".chart-1"));
-   console.log("11",dataList.filter((item) => item.classify_result == 1));
-   console.log("22",dataList.filter((item) => item.classify_result == 0));
+   console.log("11", dataList.filter((item) => item.classify_result == 1));
+   console.log("22", dataList.filter((item) => item.classify_result == 0));
    scatterOption = {
-      color:ECHART_COMMON_COLOR,
+      color: ECHART_COMMON_COLOR,
       title: {
          text: '散点分布',
          left: 'center',
@@ -270,10 +255,12 @@ const initChart1 = () => {
       xAxis: {
          max: 1,
          min: 0,
+         name: '数据置信度',
       },
       yAxis: {
          max: 1,
          min: 0,
+         name: '死亡风险预测',
       },
       legend: {
          data: ['预测正确', '预测错误'],
@@ -414,10 +401,13 @@ const initChart1 = () => {
          top: 10,
       },
       xAxis: {
+         name: '数据置信度',
          type: "category",
          data: ["低数据置信度区间", "中数据置信度区间", "高数据置信度区间"]
       },
-      yAxis: {},
+      yAxis: {
+         name:"人数",
+      },
       toolbox: {
          feature: {
             magicType: {
@@ -486,11 +476,13 @@ const initChart1 = () => {
          text: '频次分析',
          left: 'center',
       },
-      color:ECHART_COMMON_COLOR,
+      color: ECHART_COMMON_COLOR,
       xAxis: {
+         name: '数据置信度',
          scale: true,
       },
       yAxis: {
+         name:"频次",
          max: 100,
          min: 0,
       },
@@ -593,7 +585,7 @@ const initChart2 = () => {
          text: '患者各个特征指标大小',
          left: 'center',
       },
-      color:ECHART_COMMON_COLOR,
+      color: ECHART_COMMON_COLOR,
       tooltip: {
          trigger: 'axis',
          axisPointer: {
@@ -630,7 +622,7 @@ const initChart2 = () => {
       },
       yAxis: {
          type: 'category',
-         data: []
+         data: pureDimensions,
       },
       series: [
          {
@@ -658,7 +650,7 @@ const initChart4 = () => {
          text: '全局特征重要性与存在比率',
          left: 'center',
       },
-      color:ECHART_COMMON_COLOR.slice(5,7),
+      color: ECHART_COMMON_COLOR.slice(5, 7),
       dataset: [
          {
             dimensions: ["name", "i_global", "e_global"],
@@ -744,125 +736,39 @@ onMounted(() => {
 </script>
 <style lang="scss" scoped>
 .main-left {
-      width: 50%;
-      height: 100%;
-      box-shadow: 0 1px 4px #00000014;
+   width: 50%;
+   height: 100%;
+   box-shadow: 0 1px 4px #00000014;
+   margin: auto;
+
+   .chart-1 {
       margin: auto;
-
-      .chart-1 {
-         margin: auto;
-      }
-
-      .chart-1-btn {
-         margin: auto;
-         display: flex;
-         justify-content: center;
-         position: relative;
-         top: -20px;
-         .btn {
-            $primary-color: v-bind(btnColor);
-            position: relative;
-            padding: 0.5rem 1rem;
-            font-family: Lato, sans-serif;
-            font-size: 1rem;
-            line-height: 1.5;
-            text-decoration: none;
-            background-color: white;
-            border: transparent;
-            outline: transparent;
-            cursor: pointer;
-            user-select: none;
-            white-space: nowrap;
-            overflow: hidden;
-
-            &-primary {
-               color: white;
-               background-color: $primary-color;
-            }
-
-            &-snake-border {
-               .btn-borders {
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  width: 100%;
-                  height: 100%;
-
-                  .border-top {
-                  position: absolute;
-                  top: 0;
-                  width: 100%;
-                  height: 2px;
-                  background: linear-gradient(to right, transparent, white);
-                  animation: moveHorizontally 2s linear infinite;
-                  }
-
-                  .border-right {
-                  position: absolute;
-                  right: 0;
-                  width: 2px;
-                  height: 100%;
-                  background: linear-gradient(to bottom, transparent, white);
-                  animation: moveVertically 2s 1s linear infinite;
-                  }
-
-                  .border-bottom {
-                  position: absolute;
-                  bottom: 0;
-                  width: 100%;
-                  height: 2px;
-                  background: linear-gradient(to left, transparent, white);
-                  animation: moveHorizontally 2s linear reverse infinite;
-                  }
-
-                  .border-left {
-                  position: absolute;
-                  left: 0;
-                  width: 2px;
-                  height: 100%;
-                  background: linear-gradient(to top, transparent, white);
-                  animation: moveVertically 2s 1s linear reverse infinite;
-                  }
-               }
-            }
-            }
-
-            @keyframes moveHorizontally {
-            from {
-               transform: translateX(-100%);
-            }
-
-            to {
-               transform: translateX(100%);
-            }
-            }
-
-            @keyframes moveVertically {
-            from {
-               transform: translateY(-100%);
-            }
-
-            to {
-               transform: translateY(100%);
-            }
-            }
-      }
-
-      .chart-3 {
-         margin: auto;
-      }
-
-      .comment {
-         color: gray;
-         font-size: 12px;
-         margin-left: 5px;
-      }
-
-      .chart-4 {
-         margin: auto;
-         margin-top: 10px;
-      }
    }
+
+   .chart-1-btn {
+      margin: auto;
+      display: flex;
+      justify-content: space-around;
+      position: relative;
+      top: -20px;
+      width: 90%;
+   }
+
+   .chart-3 {
+      margin: auto;
+   }
+
+   .comment {
+      color: gray;
+      font-size: 12px;
+      margin-left: 5px;
+   }
+
+   .chart-4 {
+      margin: auto;
+      margin-top: 10px;
+   }
+}
 
 .main-right {
    width: 50%;
