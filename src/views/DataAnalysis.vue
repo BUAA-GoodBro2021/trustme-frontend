@@ -54,7 +54,7 @@ const testList = [
 ];
 const barColorList = [
    "#e73c56","#c1c413","#91cc75"
-]
+];
 const pureDimensions = dimensions.filter((item) => !testList.includes(item));
 let chart1 = null;
 let chart2 = null;
@@ -258,6 +258,8 @@ const changeChart2 = (params) => {
 
 const initChart1 = () => {
    chart1 = echarts.init(document.querySelector(".chart-1"));
+   console.log("11",dataList.filter((item) => item.classify_result == 1));
+   console.log("22",dataList.filter((item) => item.classify_result == 0));
    scatterOption = {
       color:ECHART_COMMON_COLOR,
       title: {
@@ -292,11 +294,11 @@ const initChart1 = () => {
       dataset: [
          {
             dimensions,
-            source: dataList.filter((item) => item.classify_result === 1)
+            source: dataList.filter((item) => item.classify_result == 1)
          },
          {
             dimensions,
-            source: dataList.filter((item) => item.classify_result === 0)
+            source: dataList.filter((item) => item.classify_result == 0)
          },
       ],
       series: [
