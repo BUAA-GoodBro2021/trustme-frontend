@@ -165,7 +165,7 @@ const initChart1 = ()=>{
    chart1 = echarts.init(document.querySelector('.chart-1'));
    let option = {
       title:{
-         text:"Orig Unfairness Metric",
+         text:"原始数据不公平性指标",
          left:"center",
          subtext:"Age"
       },
@@ -217,7 +217,7 @@ const initChart2 = ()=>{
    chart2= echarts.init(document.querySelector('.chart-2'));
    let option = {
       title:{
-         text:"Transform Unfairness Metric",
+         text:"重定义权重后数据不公平指标",
          left:"center",
          subtext:"Age"
       },

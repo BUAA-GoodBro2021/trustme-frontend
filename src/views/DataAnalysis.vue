@@ -3,17 +3,9 @@
       <div class="chart-1" style="width: 90%;height:40%;">
       </div>
       <div class="chart-1-btn">
-         <button class="btn btn-primary btn-snake-border" @click="handleClick">
-            <div class="btn-borders">
-               <div class="border-top"></div>
-               <div class="border-right"></div>
-               <div class="border-bottom"></div>
-               <div class="border-left"></div>
-            </div>
-            <span>
-               {{ chart1Title }}
-            </span>
-         </button>
+         <SnakeBtn @click="handleClick" :title="chart1Title">
+            {{ chart1Title }}
+         </SnakeBtn>
       </div>
       <div class="chart-3" style="width: 90%;">
          <el-table :data="chart3">
@@ -41,6 +33,7 @@ import dimensions from "../assets/dimensions.json";
 import dcDict from "../assets/dc_dict.json";
 import performanceList from "../assets/performance_dict.json";
 import {ECHART_COMMON_COLOR} from "../assets/common.js";
+import SnakeBtn from '../components/basic/SnakeBtn.vue';
 const testList = [
    "testset_pid",
    "data_confidence",
@@ -827,25 +820,25 @@ onMounted(() => {
             }
             }
 
-            @keyframes moveHorizontally {
-            from {
-               transform: translateX(-100%);
-            }
+         @keyframes moveHorizontally {
+         from {
+            transform: translateX(-100%);
+         }
 
-            to {
-               transform: translateX(100%);
-            }
-            }
+         to {
+            transform: translateX(100%);
+         }
+         }
 
-            @keyframes moveVertically {
-            from {
-               transform: translateY(-100%);
-            }
+         @keyframes moveVertically {
+         from {
+            transform: translateY(-100%);
+         }
 
-            to {
-               transform: translateY(100%);
-            }
-            }
+         to {
+            transform: translateY(100%);
+         }
+         }
       }
 
       .chart-3 {
