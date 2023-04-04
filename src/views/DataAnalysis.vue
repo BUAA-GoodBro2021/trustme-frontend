@@ -54,7 +54,7 @@ const testList = [
 ];
 const barColorList = [
    "#e73c56","#c1c413","#91cc75"
-]
+];
 const pureDimensions = dimensions.filter((item) => !testList.includes(item));
 let chart1 = null;
 let chart2 = null;
@@ -152,7 +152,7 @@ const changeChart2 = (params) => {
    if (params.componentSubType == "bar") {
       for (let i = 0; i < dataList.length; i++) {
          let temp = dataList[i];
-         if (temp.classify_result === 1 && checkConfidence(temp.data_confidence, params.name)) {
+         if (temp.classify_result === 0 && checkConfidence(temp.data_confidence, params.name)) {
             Object.entries(temp).forEach(([key, value]) => {
                if (!testList.includes(key)) {
                   category.push(key);
@@ -165,7 +165,7 @@ const changeChart2 = (params) => {
       }
       chart2.setOption({
          title: {
-            text: `${params.name}-预测成功患者综合特征指标`,
+            text: `${params.name}-预测失败患者综合特征指标`,
             left: 'center',
          },
          color:params.color,
@@ -218,7 +218,7 @@ const changeChart2 = (params) => {
       let to = params.data[1];
       for (let i = 0; i < dataList.length; i++) {
          let temp = dataList[i];
-         if (temp.classify_result === 1 && temp.data_confidence >= from && temp.data_confidence <= to) {
+         if (temp.classify_result === 0 && temp.data_confidence >= from && temp.data_confidence <= to) {
             Object.entries(temp).forEach(([key, value]) => {
                if (!testList.includes(key)) {
                   category.push(key);
@@ -231,7 +231,7 @@ const changeChart2 = (params) => {
       }
       chart2.setOption({
          title: {
-            text: `对应范围内预测成功患者综合特征指标`,
+            text: `对应范围内预测失败患者综合特征指标`,
             left: 'center',
          },
          color:params.color,
@@ -258,6 +258,8 @@ const changeChart2 = (params) => {
 
 const initChart1 = () => {
    chart1 = echarts.init(document.querySelector(".chart-1"));
+   console.log("11",dataList.filter((item) => item.classify_result == 1));
+   console.log("22",dataList.filter((item) => item.classify_result == 0));
    scatterOption = {
       color:ECHART_COMMON_COLOR,
       title: {
@@ -292,11 +294,11 @@ const initChart1 = () => {
       dataset: [
          {
             dimensions,
-            source: dataList.filter((item) => item.classify_result === 1)
+            source: dataList.filter((item) => item.classify_result == 1)
          },
          {
             dimensions,
-            source: dataList.filter((item) => item.classify_result === 0)
+            source: dataList.filter((item) => item.classify_result == 0)
          },
       ],
       series: [

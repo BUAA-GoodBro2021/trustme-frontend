@@ -14,10 +14,24 @@
 import * as echarts from 'echarts';
 import resList from "../assets/response.json";
 import {ECHART_COMMON_COLOR} from "../assets/common.js";
+import dimensions from "../assets/dimensions.json";
+import barDataList from "../assets/barResponse.json";
 let chart1 = null;
 let chart2 = null;
 let chart3 = null;
-const dataLegend = ["bal_acc","avg_odds_diff","spd","stat_par_diff","eq_opp_diff","theil_ind",];
+const testList = [
+   "testset_pid",
+   "data_confidence",
+   "preds_all",
+   "labels",
+   "classify_result",
+   "e_global",
+   "e_local",
+   "i_global",
+   "i_local",
+];
+const pureDimensions = dimensions.filter((item) => !testList.includes(item));
+const dataLegend = ["bal_acc","avg_odds_diff","stat_par_diff","eq_opp_diff","theil_ind",];
 const genarrList = (from,to,step)=>{
    let arr = [];
    for(let i=from;i<=to;i+=step){
@@ -61,34 +75,91 @@ const gendataSeries = (metric,isOrig)=>{
    console.log(temp);
    return temp;
 }
-function handlelegendChange(params) {
-      let selected = {};
-      Object.keys(params.selected).forEach((key)=>{
-         if(key!=params.name){
-            selected[key] = false;
-         }
-         else{
-            selected[key] = true;
-         }
-      })
-      selected.bal_acc = true;
-      let option = {
-         legend:{
-            selected,
+function handlelegendChange(params,chartIndex) {
+   console.log("legend",params);
+   let selected = {};
+   Object.keys(params.selected).forEach((key)=>{
+      if(key!=params.name){
+         selected[key] = false;
+      }
+      else{
+         selected[key] = true;
+      }
+   })
+   selected.bal_acc = true;
+   let option = {
+      legend:{
+         selected,
+      },
+      yAxis: [
+         {
+            type:"value",
+            name:"bal_acc",
          },
-         yAxis: [
-            {
-               type:"value",
-               name:"bal_acc",
-            },
-            {
-               type:"value",
-               name:params.name,
-            }
-         ],
-      };
-      chart1.setOption(option);
-      chart2.setOption(option);
+         {
+            type:"value",
+            name:params.name,
+         }
+      ],
+   };
+   chart1.setOption(option);
+   chart2.setOption(option);
+   let legendIndex = dataLegend.indexOf(params.name)-1;
+   let color = ECHART_COMMON_COLOR[legendIndex+1];
+   let data = barDataList.unfairness_metric_every_feature[legendIndex];
+   data = data.map((item)=>{
+      return Object.values(item);
+   });
+   chart3.setOption({
+      title:{
+         text:`模型精度最高时阈值下各特征不公平性指标`,
+         left:"center",
+         subtext:`${params.name}指标`,
+         subtextStyle:{
+            color,
+         }
+      },
+      color,
+      series:[
+         {
+            type:"bar",
+            data:data[resList.orig_lr_orig_best_ind],
+         }
+      ]
+   });
+}
+function handleMouseOver(params,chartIndex) {
+   console.log("mouseover",params,chartIndex);
+   if(!params.seriesIndex) return;
+   let data = barDataList.unfairness_metric_every_feature[params.seriesIndex-1];
+   data = data.map((item)=>{
+      console.log("item",item);
+      return Object.values(item);
+   });
+   chart3.setOption({
+      title:{
+         text:`不同阈值下各特征不公平性指标`,
+         left:"center",
+         subtext:`${params.name}阈值下，${params.seriesName}指标`,
+         subtextStyle:{
+            color:params.color,
+         }
+      },
+      color:params.color,
+      yAxis: {
+         type:"category",
+         data: pureDimensions,
+         axisLabel:{
+            rotate:-5
+         }
+      },
+      series:[
+         {
+            type:"bar",
+            data:data[params.dataIndex],
+         }
+      ]
+   });
 }
 const initChart1 = ()=>{
    chart1 = echarts.init(document.querySelector('.chart-1'));
@@ -121,8 +192,7 @@ const initChart1 = ()=>{
          bottom: 0,
          selected:{
             bal_acc:true,
-            avg_odds_diff:false,
-            spd:false,
+            avg_odds_diff:true,
             stat_par_diff:false,
             eq_opp_diff:false,
             theil_ind:false,
@@ -130,16 +200,18 @@ const initChart1 = ()=>{
       },
       tooltip:{
          formatter: function (params) {
+            console.log("tooltip",params);
             return(
-               '<li>X : '+params.name+'</li>'+
-               '<li>Y : '+params.value.toFixed(2)+'</li>'
+               '<li>threshold : '+params.name+'</li>'+
+               '<li>'+params.seriesName+' : '+params.value.toFixed(2)+'</li>'
             )
          }
       },
       series: gendataSeries(resList,true),
    }
    chart1.setOption(option);
-   chart1.on('legendselectchanged', handlelegendChange);
+   chart1.on('legendselectchanged', (params)=>handlelegendChange(params,0));
+   chart1.on('mouseover',(params)=>handleMouseOver(params,0));
 }
 const initChart2 = ()=>{
    chart2= echarts.init(document.querySelector('.chart-2'));
@@ -172,8 +244,7 @@ const initChart2 = ()=>{
          bottom: 0,
          selected:{
             bal_acc:true,
-            avg_odds_diff:false,
-            spd:false,
+            avg_odds_diff:true,
             stat_par_diff:false,
             eq_opp_diff:false,
             theil_ind:false,
@@ -182,22 +253,76 @@ const initChart2 = ()=>{
       tooltip:{
          formatter: function (params) {
             return(
-               '<li>X : '+params.name+'</li>'+
-               '<li>Y : '+params.value.toFixed(2)+'</li>'
+               '<li>threshold : '+params.name+'</li>'+
+               '<li>'+params.seriesName+' : '+params.value.toFixed(2)+'</li>'
             )
          }
       },
       series: gendataSeries(resList,false),
    }
    chart2.setOption(option);
-   chart2.on('legendselectchanged', handlelegendChange);
+   chart2.on('legendselectchanged', (params)=>handlelegendChange(params,1));
+   chart2.on('mouseover',(params)=>handleMouseOver(params,1));
 }
 const initChart3 = ()=>{
    chart3= echarts.init(document.querySelector('.chart-3'));
+   let data = barDataList.unfairness_metric_every_feature[1];
+   data = data.map((item)=>{
+      return Object.values(item);
+   });
+   let color = ECHART_COMMON_COLOR[1]
    let option = {
-
+      title:{
+         text:"模型精度最高时各特征不公平性指标",
+         left:"center",
+         subtext:`arg_odds_diff指标`,
+         subtextStyle:{
+            color,
+         }
+      },
+      color,
+      toolbox: {
+         feature: {
+            magicType: {
+               type: ['bar', 'line']
+            },
+            saveAsImage: {
+               type: "png",
+               title: "Save as PNG",
+            },
+         }
+      },
+      legend:{},
+      grid:{
+         containLabel:true,
+      },
+      xAxis: {
+         type: 'value',
+      },
+      yAxis: {
+         type:"category",
+         data: pureDimensions,
+         axisLabel:{
+            rotate:-5
+         }
+      },
+      series: [
+         {
+            type:"bar",
+            data:data[resList.orig_lr_orig_best_ind],
+         }
+      ],
+      tooltip:{
+         formatter:function(params){
+            console.log("tooltip",params);
+            return(
+               params.name+'<br/>'+
+               '<li>unfairness value : '+params.value.toFixed(2)+'</li>'
+            )
+         }
+      }
    };
-   chart3.setOption(option);
+   chart3.setOption(option,true);
 }
 onMounted(() => {
    initChart1();
