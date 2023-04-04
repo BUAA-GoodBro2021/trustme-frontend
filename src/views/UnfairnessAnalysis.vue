@@ -171,6 +171,7 @@ const initChart1 = ()=>{
       },
       color: ECHART_COMMON_COLOR,
       xAxis: {
+         name:"      阈值",
          type:"category",
          data:genarrList(0.01,1,0.01),
          boundaryGap: false,
@@ -183,7 +184,7 @@ const initChart1 = ()=>{
          },
          {
             type:"value",
-            name:"",
+            name:"avg_odds_diff",
             max:1,
          }
       ],
@@ -223,6 +224,7 @@ const initChart2 = ()=>{
       },
       color: ECHART_COMMON_COLOR,
       xAxis: {
+         name:"      阈值",
          type:"category",
          data:genarrList(0.01,1,0.01),
          boundaryGap: false,
@@ -235,7 +237,7 @@ const initChart2 = ()=>{
          },
          {
             type:"value",
-            name:"",
+            name:"avg_odds_diff",
             max:1,
          }
       ],

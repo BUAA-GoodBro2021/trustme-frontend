@@ -255,10 +255,12 @@ const initChart1 = () => {
       xAxis: {
          max: 1,
          min: 0,
+         name: '数据置信度',
       },
       yAxis: {
          max: 1,
          min: 0,
+         name: '死亡风险预测',
       },
       legend: {
          data: ['预测正确', '预测错误'],
@@ -399,10 +401,13 @@ const initChart1 = () => {
          top: 10,
       },
       xAxis: {
+         name: '数据置信度',
          type: "category",
          data: ["低数据置信度区间", "中数据置信度区间", "高数据置信度区间"]
       },
-      yAxis: {},
+      yAxis: {
+         name:"人数",
+      },
       toolbox: {
          feature: {
             magicType: {
@@ -473,9 +478,11 @@ const initChart1 = () => {
       },
       color: ECHART_COMMON_COLOR,
       xAxis: {
+         name: '数据置信度',
          scale: true,
       },
       yAxis: {
+         name:"频次",
          max: 100,
          min: 0,
       },
