@@ -25,6 +25,10 @@ const leftList = ref([
         link:"/",
     },
     {
+        name:'参数设置',
+        link:"/upload",
+    },
+    {
         name:'电子病历分析',
         link:"/dataAnalysis",
     },

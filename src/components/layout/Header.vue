@@ -17,6 +17,7 @@ import UserInfo from "./UserInfo.vue";
     font-size: medium;
     font-weight:500;
     width: 100%;
+    z-index: 10;
     background-color: white;
     box-shadow: 0 1px 4px #00000014;
     height: 64px;

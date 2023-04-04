@@ -14,11 +14,11 @@ import Header from '../components/layout/Header.vue';
    height: 100%;
 }
 .main {
-   margin-top: 16px;
+   // margin-top: 16px;
    display: flex;
    justify-content: space-around;
    overflow: hidden;
    background-color: white;
-   height: 100%;
+   height: calc(100vh - 64px);
 }
 </style>

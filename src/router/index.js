@@ -13,7 +13,12 @@ const router = createRouter({
         {
           path: '/welcome',
           name: '首页',
-          component: ()=>import('../views/Welcome.vue')
+          component: ()=>import('../views/HomePage.vue')
+        },
+        {
+          path: '/upload',
+          name: '上传参数',
+          component: ()=>import('../views/UploadParam.vue')
         },
         {
           path: '/dataAnalysis',
