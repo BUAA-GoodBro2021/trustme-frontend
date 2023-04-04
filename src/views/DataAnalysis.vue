@@ -152,7 +152,7 @@ const changeChart2 = (params) => {
    if (params.componentSubType == "bar") {
       for (let i = 0; i < dataList.length; i++) {
          let temp = dataList[i];
-         if (temp.classify_result === 1 && checkConfidence(temp.data_confidence, params.name)) {
+         if (temp.classify_result === 0 && checkConfidence(temp.data_confidence, params.name)) {
             Object.entries(temp).forEach(([key, value]) => {
                if (!testList.includes(key)) {
                   category.push(key);
@@ -165,7 +165,7 @@ const changeChart2 = (params) => {
       }
       chart2.setOption({
          title: {
-            text: `${params.name}-预测成功患者综合特征指标`,
+            text: `${params.name}-预测失败患者综合特征指标`,
             left: 'center',
          },
          color:params.color,
