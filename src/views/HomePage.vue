@@ -63,9 +63,11 @@
                                             class="MuiButton-label"><span>点击开始</span></span></button></div>
                             </a>
                         </div>
-                        <div class="jss203"><img src="https://wcdn.wiz.cn/static/images/wiznotex/banner_left_bg.svg">
+                        <div class="jss203">
+                            <!-- <img src="https://wcdn.wiz.cn/static/images/wiznotex/banner_left_bg.svg"> -->
                         </div>
-                        <div class="jss204"><img src="https://wcdn.wiz.cn/static/images/wiznotex/banner_right_bg.svg">
+                        <div class="jss204">
+                            <!-- <img src="https://wcdn.wiz.cn/static/images/wiznotex/banner_right_bg.svg"> -->
                         </div>
                         <!-- <div class="jss205"><img src="https://wcdn.wiz.cn/static/images/banner_front_new_bg.svg">
                         </div> -->
