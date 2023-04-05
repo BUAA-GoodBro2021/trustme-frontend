@@ -1,6 +1,9 @@
 <template>
-    <img src="/trustMe.png" class="header-png"/>
+    <img src="/doctor.png" class="header-png"/>
     <ul class="menu" ref="menu">
+        <li class="menu-item">
+            TrustMe
+        </li>
         <li v-for="(item,index) in leftList" 
             :index="item.name" 
             class="menu-item" 
@@ -21,7 +24,7 @@ const handleClick = (index) => {
     for(let i = 0; i < list.length; i++){
         list[i].classList.remove('active');
     }
-    menu.value.children[index].classList.add('active');
+    menu.value.children[index+1].classList.add('active');
 };
 const leftList = ref([
     {
@@ -63,9 +66,10 @@ onMounted(() => {
     border-bottom: 2px solid white;
 }
 .header-png{
-    margin-top: 10px;
+    margin-top: 5px;
     height: 55px;
-    width: 90px;
+    width: 55px;
+    border-radius: 27px;
     margin-left: 10px;
 }
 </style>
