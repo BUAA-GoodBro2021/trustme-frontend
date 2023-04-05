@@ -1114,14 +1114,22 @@ const router = useRouter();
 .jss192 {
     background-color: #d1e6ff;
 }
-
+@font-face {
+    font-family: "smileySans";
+    src: url('../assets/fonts/SmileySans-Oblique.ttf');
+    src: url('../assets/fonts/SmileySans-Oblique.ttf') format('truetype');
+    src: url('../assets/fonts/SmileySans-Oblique.otf.woff2') format('woff2');
+    src: url('../assets/fonts/SmileySans-Oblique.ttf.woff2') format('woff2');
+    src: url('../assets/fonts/SmileySans-Oblique.otf') format('opentype');
+}
 .MuiTypography-root {
     margin: 0;
+    font-family: "smileySans";
 }
 
 .MuiTypography-body2 {
     font-size: 0.875rem;
-    font-family: "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Microsoft Yahei", Arial, sans-serif;
+    font-family: "smileySans", "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Microsoft Yahei", Arial, sans-serif;
     font-weight: 400;
     line-height: 1.43;
     letter-spacing: 0.01071em;
@@ -2588,7 +2596,7 @@ const router = useRouter();
 
 .jss197 {
     color: #1D1E20;
-    font-size: 44px;
+    font-size: 50px;
     font-style: normal;
     font-weight: 600;
     line-height: 62px;
@@ -2856,7 +2864,7 @@ const router = useRouter();
 
 .jss212 {
     margin: 10px 0;
-    font-size: 16px;
+    font-size: 20px;
     min-height: 28px;
 }
 
@@ -2978,7 +2986,7 @@ const router = useRouter();
 
 .jss220 {
     margin: 10px 0;
-    font-size: 16px;
+    font-size: 20px;
     min-height: 28px;
 }
 
@@ -3198,7 +3206,7 @@ const router = useRouter();
 
 .jss231 {
     color: #1D1E20;
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 500;
     white-space: nowrap;
 }
@@ -3238,8 +3246,7 @@ const router = useRouter();
 .jss207 {
     color: #1D1E20;
     padding: 0 30px;
-    font-size: 42px;
-    /*32px*/
+    font-size: 60px;
     font-weight: bold;
     line-height: 48px;
 }
