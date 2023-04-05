@@ -181,7 +181,7 @@
       </div>
       <div class="uploader">
          <span class="title">文件上传</span>
-         <el-upload ref="uploadRef" class="upload-demo" drag :auto-upload="false" :on-exceed="handleExceed"
+         <el-upload ref="uploadRef" drag :auto-upload="false" :on-exceed="handleExceed"
             accept=".xls, .xlsx, .csv" v-model:file-list="fileList" :on-change="handleChange">
             <el-icon class="el-icon--upload"><upload-filled /></el-icon>
             <div class="el-upload__text">
@@ -194,17 +194,9 @@
             </template>
          </el-upload>
          <div class="chart-1-btn">
-            <button class="btn btn-primary btn-snake-border" @click="submitForm()">
-               <div class="btn-borders">
-                  <div class="border-top"></div>
-                  <div class="border-right"></div>
-                  <div class="border-bottom"></div>
-                  <div class="border-left"></div>
-               </div>
-               <span>
-                  上传
-               </span>
-            </button>
+            <snake-btn @click="submitForm()">
+                提交
+            </snake-btn>
          </div>
       </div>
    </div>
@@ -212,6 +204,7 @@
 <script setup>
 import { UploadFilled } from '@element-plus/icons-vue'
 import { ParamUpload } from '../api/welcome'
+import SnakeBtn from '../components/basic/SnakeBtn.vue';
 
 const uploadRef = ref('uploadRef')
 const btnColor = ref("#45c3fe")
@@ -318,22 +311,6 @@ const handleChange = (file, filelist) => {
 }
 </script>
 <style lang="scss" scoped>
-.main-left {
-   width: 50%;
-   height: 100%;
-   box-shadow: 0 1px 4px #00000014;
-   margin: auto;
-   padding-left: 30px;
-
-}
-
-.main-right {
-   width: 50%;
-   height: 100%;
-   box-shadow: 0 1px 4px #00000014;
-   margin: auto;
-   padding: 0 20px 0 20px;
-}
 
 .title {
    font-weight: 500;
@@ -341,121 +318,19 @@ const handleChange = (file, filelist) => {
    display: block;
    margin-bottom: 10px;
 }
-
-.table {
-   // height: 50%;
-   width: 70%;
-   margin: auto;
+:deep(.el-upload-dragger){
+    padding: 10px;
 }
-
-.uploader {
-   height: 70%;
-   width: 90%;
-   margin: auto;
+.el-upload__tip{
+    margin-top: 0;
 }
-
-.chart-1-btn {
-   // margin: auto;
-   float: right;
-   display: flex;
-   justify-content: center;
-   position: relative;
-   // top: -20px;
-   // right: 10px;
-
-   .btn {
-      $primary-color: v-bind(btnColor);
-      position: relative;
-      padding: 0.5rem 1rem;
-      font-family: Lato, sans-serif;
-      font-size: 1rem;
-      line-height: 1.5;
-      text-decoration: none;
-      background-color: white;
-      border: transparent;
-      outline: transparent;
-      cursor: pointer;
-      user-select: none;
-      white-space: nowrap;
-      overflow: hidden;
-
-      &-primary {
-         color: white;
-         background-color: $primary-color;
-      }
-
-      &-snake-border {
-         .btn-borders {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-
-            .border-top {
-               position: absolute;
-               top: 0;
-               width: 100%;
-               height: 2px;
-               background: linear-gradient(to right, transparent, white);
-               animation: moveHorizontally 2s linear infinite;
-            }
-
-            .border-right {
-               position: absolute;
-               right: 0;
-               width: 2px;
-               height: 100%;
-               background: linear-gradient(to bottom, transparent, white);
-               animation: moveVertically 2s 1s linear infinite;
-            }
-
-            .border-bottom {
-               position: absolute;
-               bottom: 0;
-               width: 100%;
-               height: 2px;
-               background: linear-gradient(to left, transparent, white);
-               animation: moveHorizontally 2s linear reverse infinite;
-            }
-
-            .border-left {
-               position: absolute;
-               left: 0;
-               width: 2px;
-               height: 100%;
-               background: linear-gradient(to top, transparent, white);
-               animation: moveVertically 2s 1s linear reverse infinite;
-            }
-         }
-      }
-   }
-
-   @keyframes moveHorizontally {
-      from {
-         transform: translateX(-100%);
-      }
-
-      to {
-         transform: translateX(100%);
-      }
-   }
-
-   @keyframes moveVertically {
-      from {
-         transform: translateY(-100%);
-      }
-
-      to {
-         transform: translateY(100%);
-      }
-   }
-}
-
 .main-wrap {
-   width: 100%;
-   height: 100%;
-   padding-top: 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    overflow-y: auto;
 
    .title {
       font-weight: 500;
@@ -465,113 +340,28 @@ const handleChange = (file, filelist) => {
    }
 
    .table {
-      // height: 50%;
-      width: 70%;
       margin: auto;
+      background-color: white;
+      padding:20px;
+      border-radius: 25px;
+      width: 70%;
    }
 
    .uploader {
-      height: 30%;
-      width: 70%;
-      margin: auto;
+        margin: auto;
+        background-color: white;
+        padding:20px;
+        border-radius: 25px;
+        width: 70%;
+        position: relative;
    }
-
    .chart-1-btn {
-      // margin: auto;
-      float: right;
-      display: flex;
-      justify-content: center;
-      position: relative;
-      // top: -20px;
-      // right: 10px;
-
-      .btn {
-         $primary-color: v-bind(btnColor);
-         position: relative;
-         padding: 0.5rem 1rem;
-         font-family: Lato, sans-serif;
-         font-size: 1rem;
-         line-height: 1.5;
-         text-decoration: none;
-         background-color: white;
-         border: transparent;
-         outline: transparent;
-         cursor: pointer;
-         user-select: none;
-         white-space: nowrap;
-         overflow: hidden;
-
-         &-primary {
-            color: white;
-            background-color: $primary-color;
-         }
-
-         &-snake-border {
-            .btn-borders {
-               position: absolute;
-               top: 0;
-               left: 0;
-               width: 100%;
-               height: 100%;
-
-               .border-top {
-                  position: absolute;
-                  top: 0;
-                  width: 100%;
-                  height: 2px;
-                  background: linear-gradient(to right, transparent, white);
-                  animation: moveHorizontally 2s linear infinite;
-               }
-
-               .border-right {
-                  position: absolute;
-                  right: 0;
-                  width: 2px;
-                  height: 100%;
-                  background: linear-gradient(to bottom, transparent, white);
-                  animation: moveVertically 2s 1s linear infinite;
-               }
-
-               .border-bottom {
-                  position: absolute;
-                  bottom: 0;
-                  width: 100%;
-                  height: 2px;
-                  background: linear-gradient(to left, transparent, white);
-                  animation: moveHorizontally 2s linear reverse infinite;
-               }
-
-               .border-left {
-                  position: absolute;
-                  left: 0;
-                  width: 2px;
-                  height: 100%;
-                  background: linear-gradient(to top, transparent, white);
-                  animation: moveVertically 2s 1s linear reverse infinite;
-               }
-            }
-         }
-      }
-
-      @keyframes moveHorizontally {
-         from {
-            transform: translateX(-100%);
-         }
-
-         to {
-            transform: translateX(100%);
-         }
-      }
-
-      @keyframes moveVertically {
-         from {
-            transform: translateY(-100%);
-         }
-
-         to {
-            transform: translateY(100%);
-         }
-      }
+        float: right;
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        right:25px;
+        top:10px;
    }
 }
 </style>

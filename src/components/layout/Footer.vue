@@ -25,6 +25,7 @@ $font-type: smileySans;
     height:16px;
     display:flex;
     justify-content: space-around;
+    background-color: #eff7f8;
     // flex-direction: column;
     text-align: center;
     &-text{
