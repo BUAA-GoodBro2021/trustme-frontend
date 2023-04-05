@@ -43,15 +43,15 @@ export default defineConfig({
     },
     extensions: ['.js',',ts','.json','.jsx','.tsx','.vue'],
   },
-  build:{
-    minify: 'terser',
-    // sourcemap: true,
-    terserOptions:{
-      compress:{
-        // 生产环境中移除console.log()和debugger
-        drop_console:true,
-        drop_debugger:true,
-      }
-    }
-  }
+//   build:{
+//     minify: 'terser',
+//     // sourcemap: true,
+//     terserOptions:{
+//       compress:{
+//         // 生产环境中移除console.log()和debugger
+//         drop_console:true,
+//         drop_debugger:true,
+//       }
+//     }
+//   }
 })
