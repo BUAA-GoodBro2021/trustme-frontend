@@ -1,5 +1,5 @@
 <template>
-    <div id="root">
+    <div id="root" style="overflow:auto;">
         <div>
             <div class="jss1">
                 <div class="jss88">
@@ -511,31 +511,7 @@
                         </a>
                     </p>
                 </div>
-                <div class="jss232">
-
-                    <div class="jss252"></div>
-                    <div class="jss253">
-                        <div class="jss254">
-                            <p class="MuiTypography-root jss130 jss139 jss255 MuiTypography-body2"><a
-                                    class="MuiTypography-root MuiLink-root MuiLink-underlineHover jss256 MuiTypography-colorPrimary"
-                                    href="https://beian.miit.gov.cn/#/Integrated/index"
-                                    target="_blank">京ICP备2022007189号-2</a></p>
-                        </div>
-                        <div class="jss254">
-                            <p class="MuiTypography-root jss130 jss139 jss255 MuiTypography-body2"><a
-                                    class="MuiTypography-root MuiLink-root MuiLink-underlineHover jss256 MuiTypography-colorPrimary"
-                                    target="_blank">Copyright © 2021-2022 Super2021.</a></p>
-                        </div>
-                        <div class="jss254">
-                            <p class="MuiTypography-root jss130 jss139 jss255 MuiTypography-body2"><a
-                                    class="MuiTypography-root MuiLink-root MuiLink-underlineHover jss256 MuiTypography-colorPrimary"
-                                    target="_blank">All Rights Reserved. Super2021 版权所有</a></p>
-                        </div>
-                    </div>
-
-
-
-                </div>
+                
 
                 <div class="jss288"><img class="jss289"
                         src="https://global-1309504341.cos.ap-beijing.myqcloud.com/wechat-code.jpg">
@@ -547,7 +523,6 @@
 </template>
 <script setup>
 import { useRoute } from 'vue-router';
-
 const route = useRoute();
 const router = useRouter();
 </script>
