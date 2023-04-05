@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <div class="jss222"><img
-                            src="https://photo-bucket-1309504341.cos.ap-beijing.myqcloud.com/inkbook-document.gif">
+                            src="https://photo-bucket-1309504341.cos.ap-beijing.myqcloud.com/similar_patient.gif">
                     </div>
                 </div>
 
@@ -144,7 +144,7 @@
 
                     <div class="jss208">
                         <div class="jss214"><img
-                                src="https://photo-bucket-1309504341.cos.ap-beijing.myqcloud.com/inkbook-design.gif">
+                                src="https://photo-bucket-1309504341.cos.ap-beijing.myqcloud.com/predict.gif">
                         </div>
                         <div class="jss209">
                             <p class="MuiTypography-root jss130 jss136 jss210 MuiTypography-body2">
@@ -227,7 +227,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="jss222"><img src="https://qncdn.aoscdn.com/img/flowchart/png/video.gif?5ba429f5">
+                    <div class="jss222"><img src="https://photo-bucket-1309504341.cos.ap-beijing.myqcloud.com/uncertainty.gif">
                     </div>
                 </div>
 
@@ -235,7 +235,7 @@
                     <div class="jss87"></div>
 
                     <div class="jss208">
-                        <div class="jss214"><img src="https://wcdn.wiz.cn/wiz-image/function-3.gif"></div>
+                        <div class="jss214"><img src="https://photo-bucket-1309504341.cos.ap-beijing.myqcloud.com/unfairness.gif"></div>
                         <div class="jss209">
                             <p class="MuiTypography-root jss130 jss136 jss210 MuiTypography-body2">
                                 <strong>不公平性挖掘</strong>
