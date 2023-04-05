@@ -371,7 +371,7 @@ onMounted(() => {
    height: 100%;
    padding-top: 20px;
    &-wrap {
-      height: 40%;
+      height: 43.5%;
       width: 90%;
       margin-left: 5%;
       margin-top: 3%;
@@ -395,7 +395,7 @@ onMounted(() => {
    margin: auto;
    padding-top: 20px;
    &-wrap{
-      height: 83%;
+      height: 90%;
       width: 90%;
       margin-top: 3%;
       background-color: white;

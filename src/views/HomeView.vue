@@ -31,7 +31,7 @@ $--el-font-size-base:large;
    display: flex;
    justify-content: space-around;
    overflow: hidden;
-   background-color: white;
+   background-color: #eff7f8;
    height: calc(100vh - 64px - 16px);
 }
 </style>

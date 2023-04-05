@@ -1,30 +1,34 @@
 <template>
    <div class="main-left">
-      <div class="chart-1" style="width: 90%;height:40%;">
-      </div>
-      <div class="chart-1-btn">
-         <template v-for="(item, index) in chart1Titles">
-            <SnakeBtn @click="handleClick(index)" :btnColor="item.color">
-               {{ item.title }}
-            </SnakeBtn>
-         </template>
-      </div>
-      <div class="chart-3" style="width: 90%;">
-         <el-table :data="chart3">
-            <el-table-column prop="acc" label="ACC" />
-            <el-table-column prop="auroc" label="AUROC" />
-            <el-table-column prop="auprc" label="AUPRC" />
-            <el-table-column prop="ece" label="ECE" />
-            <el-table-column prop="aece" label="AECE" />
-            <el-table-column prop="nll" label="NLL" />
-         </el-table>
-         <div class="comment">注：±左右分别是性能均值及标准差，单位为%</div>
-      </div>
-      <div class="chart-4" style="width: 90%;height:30%;">
+      <div class="main-left-wrap">
+         <div class="chart-1" style="width: 90%;height:40%;">
+         </div>
+         <div class="chart-1-btn">
+            <template v-for="(item, index) in chart1Titles">
+               <SnakeBtn @click="handleClick(index)" :btnColor="item.color">
+                  {{ item.title }}
+               </SnakeBtn>
+            </template>
+         </div>
+         <div class="chart-3" style="width: 90%;">
+            <el-table :data="chart3">
+               <el-table-column prop="acc" label="ACC" />
+               <el-table-column prop="auroc" label="AUROC" />
+               <el-table-column prop="auprc" label="AUPRC" />
+               <el-table-column prop="ece" label="ECE" />
+               <el-table-column prop="aece" label="AECE" />
+               <el-table-column prop="nll" label="NLL" />
+            </el-table>
+            <div class="comment">注：±左右分别是性能均值及标准差，单位为%</div>
+         </div>
+         <div class="chart-4" style="width: 90%;height:30%;">
+         </div>
       </div>
    </div>
    <div class="main-right">
-      <div class="chart-2" style="width: 90%;height:85%;">
+      <div class="main-right-wrap">
+         <div class="chart-2" style="width: 90%;height:100%;">
+         </div>
       </div>
    </div>
 </template>
@@ -672,6 +676,7 @@ const initChart4 = () => {
       legend: {
          data: ["特征重要性", "存在比率"],
          left: "5%",
+         orient: "vertical",
       },
       toolbox: {
          feature: {
@@ -741,51 +746,73 @@ onMounted(() => {
 .main-left {
    width: 50%;
    height: 100%;
-   box-shadow: 0 1px 4px #00000014;
+   // box-shadow: 0 1px 4px #00000014;
    margin: auto;
    padding-top: 20px;
-   .chart-1 {
-      margin: auto;
-   }
-
-   .chart-1-btn {
-      margin: auto;
-      display: flex;
-      justify-content: space-around;
-      position: relative;
-      top: -20px;
+   &-wrap{
+      height: 90%;
       width: 90%;
-   }
+      margin-left: 5%;
+      margin-top: 3%;
+      background-color: white;
+      border-radius: 25px;
+      position: relative;
 
-   .chart-3 {
-      margin: auto;
-   }
+      .chart-1 {
+         position: absolute;
+         top: 5%;
+         left: 5%;
+      }
 
-   .comment {
-      color: gray;
-      font-size: 12px;
-      margin-left: 5px;
-   }
+      .chart-1-btn {
+         margin: auto;
+         display: flex;
+         justify-content: space-around;
+         position: absolute;
+         top: calc(45% - 2.5rem);
+         width: 90%;
+      }
 
-   .chart-4 {
-      margin: auto;
-      margin-top: 10px;
+      .chart-3 {
+         position: absolute;
+         top:calc(45% + 1rem);
+         left: 5%;
+      }
+
+      .comment {
+         color: gray;
+         font-size: 12px;
+         margin-left: 5px;
+      }
+
+      .chart-4 {
+         position: absolute;
+         right:5%;
+         bottom: 0;
+      }
    }
+   
 }
 
 .main-right {
    width: 50%;
    height: 100%;
-   box-shadow: 0 1px 4px #00000014;
+   // box-shadow: 0 1px 4px #00000014;
    display: flex;
    justify-content: center;
    margin: auto;
    padding-top: 20px;
-
-   .chart-2 {
-      // margin: auto;
-      margin-top: 0;
-      margin-left: -10%;
+   &-wrap{
+      height: 90%;
+      width: 90%;
+      margin-top: 3%;
+      background-color: white;
+      border-radius: 25px;
+      position: relative;
+      .chart-2{
+         position: absolute;
+         top: 2%;
+      }
    }
 }
 </style>
