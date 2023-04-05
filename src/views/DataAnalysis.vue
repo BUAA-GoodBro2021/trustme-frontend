@@ -601,6 +601,9 @@ const initChart2 = () => {
       },
       toolbox: {
          feature: {
+            dataZoom: {
+               xAxisIndex: 'none'
+            },
             magicType: {
                type: ['bar', 'line']
             },

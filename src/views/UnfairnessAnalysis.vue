@@ -170,6 +170,18 @@ const initChart1 = ()=>{
          subtext:"Age"
       },
       color: ECHART_COMMON_COLOR,
+      toolbox: {
+         feature: {
+            dataZoom: {
+               yAxisIndex: 'none'
+            },
+            dataView: {},
+            saveAsImage: {
+               type: "png",
+               title: "Save as PNG",
+            },
+         }
+      },
       xAxis: {
          name:"      阈值",
          type:"category",
@@ -223,6 +235,18 @@ const initChart2 = ()=>{
          subtext:"Age"
       },
       color: ECHART_COMMON_COLOR,
+      toolbox: {
+         feature: {
+            dataZoom: {
+               yAxisIndex: 'none'
+            },
+            dataView: {},
+            saveAsImage: {
+               type: "png",
+               title: "Save as PNG",
+            },
+         }
+      },
       xAxis: {
          name:"      阈值",
          type:"category",
@@ -285,6 +309,9 @@ const initChart3 = ()=>{
       color,
       toolbox: {
          feature: {
+            dataZoom: {
+               xAxisIndex: 'none'
+            },
             magicType: {
                type: ['bar', 'line']
             },
