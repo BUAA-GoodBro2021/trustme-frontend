@@ -23,6 +23,7 @@ import { useRoute } from 'vue-router';
 const route = useRoute();
 const menu = ref(null);
 const handleClick = (index) => {
+    if(index==1) return;
     let list = menu.value.children;
     for(let i = 0; i < list.length; i++){
         list[i].classList.remove('active');
@@ -74,9 +75,9 @@ onMounted(() => {
 }
 .header-png{
     margin-top: 5px;
-    height: 55px;
-    width: 55px;
-    border-radius: 27px;
+    height: 54px;
+    width: 54px;
+    border-radius: 50%;
     margin-left: 10px;
 }
 </style>
