@@ -44,4 +44,7 @@ const logout = ()=>{
     display: flex;
     align-items: center;
 }
+.el-dropdown{
+    font-size:large;
+}
 </style>

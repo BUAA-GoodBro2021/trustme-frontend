@@ -338,6 +338,7 @@ onMounted(() => {
    height: 100%;
    box-shadow: 0 1px 4px #00000014;
    margin: auto;
+   padding-top: 20px;
 
    .chart-1 {
       margin: auto;
@@ -354,5 +355,6 @@ onMounted(() => {
    display: flex;
    justify-content: center;
    margin: auto;
+   padding-top: 20px;
 }
 </style>

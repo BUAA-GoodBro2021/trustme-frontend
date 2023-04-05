@@ -13,9 +13,21 @@ import LeftTab from "./LeftTab.vue";
 import UserInfo from "./UserInfo.vue";
 </script>
 <style lang="scss" scoped>
+$font-type: smileySans;
+$--el-font-size-base:large;
+/**得意黑字体自定义命名为了 smileySans 但是我感觉还是Georgia或者serif好看一点 */
+@font-face {
+    font-family: smileySans;
+    src: url('../../assets/fonts/SmileySans-Oblique.ttf');
+    src: url('../../assets/fonts/SmileySans-Oblique.ttf') format('truetype');
+    src: url('../../assets/fonts/SmileySans-Oblique.otf.woff2') format('woff2');
+    src: url('../../assets/fonts/SmileySans-Oblique.ttf.woff2') format('woff2');
+    src: url('../../assets/fonts/SmileySans-Oblique.otf') format('opentype');
+}
 .header{
-    font-size: medium;
+    font-size: large;
     font-weight:500;
+    font-family: $font-type;
     width: 100%;
     z-index: 10;
     background-color: white;

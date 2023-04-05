@@ -17,7 +17,7 @@ import Header from '../components/layout/Header.vue';
    // margin-top: 16px;
    display: flex;
    justify-content: space-around;
-   overflow: hidden;
+   overflow-x: hidden;
    background-color: white;
    height: calc(100vh - 64px);
 }

@@ -6,9 +6,9 @@
    :ellipsis="false"
    >
    <template v-for="(item,index) in leftList" :key="index">
-    <el-menu-item :index="item.name">
+    <el-menu-item :index="item.name" >
         <router-link :to="item.link">
-            {{ item.name }}
+                {{ item.name }}
         </router-link>
     </el-menu-item>
    </template>
@@ -46,6 +46,9 @@ const leftList = ref([
 <style scoped>
 .el-menu--horizontal{
     border-bottom: none;
+}
+.el-menu-item{
+    font-size: large;
 }
 .header-png{
     margin-top: 10px;
