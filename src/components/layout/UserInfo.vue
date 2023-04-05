@@ -28,7 +28,7 @@ import { useStateStore } from '../../stores/state';
 // const circleUrl = ref('https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png');
 const stateStore = useStateStore();
 const router = useRouter();
-const userName = ref("LLLeo");
+const userName = ref("xiaoya");
 const isDown = ref(true);
 const onChange = ()=>{
     isDown.value = !isDown.value;
