@@ -17,7 +17,7 @@ const router = createRouter({
         },
         {
           path: '/upload',
-          name: '上传参数',
+          name: '超参设置',
           component: ()=>import('../views/UploadParam.vue')
         },
         {

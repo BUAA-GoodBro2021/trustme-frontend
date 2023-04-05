@@ -3,7 +3,6 @@
    <el-menu
    :default-active="activeIndex"
    mode="horizontal"
-   @select="handleSelect"
    :ellipsis="false"
    >
    <template v-for="(item,index) in leftList" :key="index">
@@ -16,16 +15,22 @@
    </el-menu>
 </template>
 <script setup>
+import { watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
+const router = useRouter();
 const activeIndex = ref(route.name);
+router.beforeEach((to)=>{
+    activeIndex.value = to.name;
+})
+
 const leftList = ref([
     {
         name:'首页',
         link:"/",
     },
     {
-        name:'参数设置',
+        name:'超参设置',
         link:"/upload",
     },
     {
@@ -37,9 +42,6 @@ const leftList = ref([
         link:"/unfairnessAnalysis",
     },
 ])
-const handleSelect = (item)=>{
-    console.log(item);
-}
 </script>
 <style scoped>
 .el-menu--horizontal{

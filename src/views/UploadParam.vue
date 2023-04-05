@@ -1,6 +1,6 @@
 <template>
    <!-- <div class="main-left">
-      <span class="title">参数设置</span>
+      <span class="title">超参设置</span>
       <el-form :inline="true" :model="modelparams" class="demo-form-inline">
          <el-form-item label="使用已经训练好的模型">
             <el-select v-model="modelparams.use_pretrain_model" placeholder="是/否">
@@ -105,7 +105,7 @@
    </div> -->
    <div class="main-wrap">
       <div class="table">
-         <span class="title">参数设置</span>
+         <span class="title">超参设置</span>
          <el-form :inline="true" :model="modelparams" class="demo-form-inline">
             <el-form-item label="使用已经训练好的模型">
                <el-select v-model="modelparams.use_pretrain_model" placeholder="是/否">
