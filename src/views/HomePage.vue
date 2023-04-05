@@ -96,19 +96,19 @@
                 <div class="jss216">
                     <div class="jss217">
                         <p class="MuiTypography-root jss130 jss136 jss218 MuiTypography-body2">
-                            <strong>文档编辑</strong>
+                            <strong>相似患者匹配模型</strong>
                         </p>
                         <div class="jss219">
                             <br>
                             <br>
                             <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                🤔 多人多端同步协作编辑文档
+                                🤔 增强医疗时序特征表示
                             </p>
                             <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                😊 海量文档模板快速上手使用
+                                😊 健康状态关联图分析
                             </p>
                             <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                😍 成熟的文档管理中心方便团队协作
+                                😍 聚类相似患者、发现潜在亚群
                             </p>
                         </div>
                         <br>
@@ -117,7 +117,7 @@
                                 class="MuiButtonBase-root MuiButton-root jss156 jss158 jss176 jss221 MuiButton-contained"
                                 tabindex="0" type="button"><span class="MuiButton-label"><a
                                         class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-                                        href="/upload"><span>点击开始</span><svg width="13" height="11"
+                                        href="http://v.ai-care.top/215" target="_blank"><span>点击开始</span><svg width="13" height="11"
                                             viewBox="0 0 13 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M13 5.5C13 5.28349 12.9187 5.09856 12.7561 4.9452L8.55625 0.743572C8.47045 0.662382 8.38013 0.601488 8.28529 0.560893C8.19497 0.520298 8.10239 0.5 8.00755 0.5C7.79079 0.5 7.6124 0.569914 7.47241 0.709743C7.33241 0.845061 7.26241 1.01646 7.26241 1.22395C7.26241 1.33221 7.28273 1.43369 7.32338 1.52842C7.36402 1.61863 7.41822 1.69756 7.48596 1.76522L8.92205 3.21313L11.2455 5.33762L11.5165 4.87754L9.22688 4.74899H1.57224C1.34192 4.74899 1.15451 4.8189 1.01 4.95873C0.870001 5.09856 0.800003 5.27898 0.800003 5.5C0.800003 5.72553 0.870001 5.90821 1.01 6.04804C1.15451 6.18787 1.34192 6.25778 1.57224 6.25778H9.22688L11.5165 6.12246L11.2455 5.67591L8.92205 7.79364L7.48596 9.24154C7.41822 9.3092 7.36402 9.39039 7.32338 9.48511C7.28273 9.57533 7.26241 9.67456 7.26241 9.78281C7.26241 9.9903 7.33241 10.1617 7.47241 10.297C7.6124 10.4323 7.79079 10.5 8.00755 10.5C8.20626 10.5 8.38464 10.4233 8.5427 10.27L12.7561 6.06157C12.9187 5.90821 13 5.72102 13 5.5Z"
@@ -146,19 +146,19 @@
                         </div>
                         <div class="jss209">
                             <p class="MuiTypography-root jss130 jss136 jss210 MuiTypography-body2">
-                                <strong>原型设计</strong>
+                                <strong>AI模型预测</strong>
                             </p>
                             <div class="jss211">
                                 <br>
                                 <br>
                                 <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                    🔥 支持多人在线协作设计原型
+                                    🔥 丰富的自定义超参配置
                                 </p>
                                 <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                    👍 提供丰富的组件素材和原型模板
+                                    👍 支持通用机器学习/深度学习预测模型
                                 </p>
                                 <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                    ⚡ 支持原型设计在线预览与分享
+                                    ⚡ 支持用户自主上传数据，在线预测
                                 </p>
                             </div>
                             <br>
@@ -168,7 +168,7 @@
                                     class="MuiButtonBase-root MuiButton-root jss156 jss158 jss176 jss213 MuiButton-contained"
                                     tabindex="0" type="button"><span class="MuiButton-label"><a
                                             class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-                                            href="/upload"><span>点击开始</span><svg width="13"
+                                            href="/predict"><span>点击开始</span><svg width="13"
                                                 height="11" viewBox="0 0 13 11" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -193,19 +193,19 @@
                 <div class="jss216">
                     <div class="jss217">
                         <p class="MuiTypography-root jss130 jss136 jss218 MuiTypography-body2">
-                            <strong>绘制UML图</strong>
+                            <strong>多维预测不确定性量化</strong>
                         </p>
                         <div class="jss219">
                             <br>
                             <br>
                             <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                🌟 内嵌Drawio开源绘制平台
+                                🌟 从模型与数据多维度考察预测不确定性来源
                             </p>
                             <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                🍀 支持随时保存，多端同步
+                                🍀 多视角、临床可解释的数据不确定性量化
                             </p>
                             <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                🌱 导入导出流畅无损，无格式混乱
+                                🌱 临床上易用的不确定性量化基准确定
                             </p>
                         </div>
                         <br>
@@ -214,7 +214,7 @@
                                 class="MuiButtonBase-root MuiButton-root jss156 jss158 jss176 jss221 MuiButton-contained"
                                 tabindex="0" type="button"><span class="MuiButton-label"><a
                                         class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-                                        href="/upload"><span>点击开始</span><svg width="13" height="11"
+                                        href="/uncertainty"><span>点击开始</span><svg width="13" height="11"
                                             viewBox="0 0 13 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 d="M13 5.5C13 5.28349 12.9187 5.09856 12.7561 4.9452L8.55625 0.743572C8.47045 0.662382 8.38013 0.601488 8.28529 0.560893C8.19497 0.520298 8.10239 0.5 8.00755 0.5C7.79079 0.5 7.6124 0.569914 7.47241 0.709743C7.33241 0.845061 7.26241 1.01646 7.26241 1.22395C7.26241 1.33221 7.28273 1.43369 7.32338 1.52842C7.36402 1.61863 7.41822 1.69756 7.48596 1.76522L8.92205 3.21313L11.2455 5.33762L11.5165 4.87754L9.22688 4.74899H1.57224C1.34192 4.74899 1.15451 4.8189 1.01 4.95873C0.870001 5.09856 0.800003 5.27898 0.800003 5.5C0.800003 5.72553 0.870001 5.90821 1.01 6.04804C1.15451 6.18787 1.34192 6.25778 1.57224 6.25778H9.22688L11.5165 6.12246L11.2455 5.67591L8.92205 7.79364L7.48596 9.24154C7.41822 9.3092 7.36402 9.39039 7.32338 9.48511C7.28273 9.57533 7.26241 9.67456 7.26241 9.78281C7.26241 9.9903 7.33241 10.1617 7.47241 10.297C7.6124 10.4323 7.79079 10.5 8.00755 10.5C8.20626 10.5 8.38464 10.4233 8.5427 10.27L12.7561 6.06157C12.9187 5.90821 13 5.72102 13 5.5Z"
@@ -236,16 +236,19 @@
                         <div class="jss214"><img src="https://wcdn.wiz.cn/wiz-image/function-3.gif"></div>
                         <div class="jss209">
                             <p class="MuiTypography-root jss130 jss136 jss210 MuiTypography-body2">
-                                <strong>即时协作，更高效的编辑与分享</strong>
+                                <strong>不公平性挖掘</strong>
                             </p>
                             <div class="jss211">
                                 <br>
                                 <br>
                                 <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                    😋 可随时添加协作者并将协作文档分享给他人
+                                    😋 模型、数据集多维度确定偏见来源
                                 </p>
                                 <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                    😄 多人实时协作编辑实现团队内容共同创作
+                                    😄 个性化定制多属性不公平性特权比重
+                                </p>
+                                <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
+                                    🍀 基于多特征的特权等级缓解模型偏见
                                 </p>
                             </div>
                             <br>
@@ -255,7 +258,7 @@
                                     class="MuiButtonBase-root MuiButton-root jss156 jss158 jss176 jss213 MuiButton-contained"
                                     tabindex="0" type="button"><span class="MuiButton-label"><a
                                             class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-                                            href="/upload"><span>点击开始</span><svg width="13"
+                                            href="/unfairness"><span>点击开始</span><svg width="13"
                                                 height="11" viewBox="0 0 13 11" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
