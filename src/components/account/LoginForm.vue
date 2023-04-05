@@ -75,7 +75,7 @@ const login = ()=>{
 			if(res.data.user.is_super){
 				router.push({path:"/admin"});
 			}
-			else router.push({name:"Welcome"})
+			else router.push({name:"主页"})
 		}
 		else{
 			ElNotification({

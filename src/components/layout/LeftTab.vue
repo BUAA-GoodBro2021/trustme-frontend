@@ -1,29 +1,28 @@
 <template>
     <img src="/trustMe.png" class="header-png"/>
-   <el-menu
-   :default-active="activeIndex"
-   mode="horizontal"
-   :ellipsis="false"
-   >
-   <template v-for="(item,index) in leftList" :key="index">
-    <el-menu-item :index="item.name" >
-        <router-link :to="item.link">
+    <ul class="menu" ref="menu">
+        <li v-for="(item,index) in leftList" 
+            :index="item.name" 
+            class="menu-item" 
+            @click="handleClick(index)">
+            <router-link :to="item.link">
                 {{ item.name }}
-        </router-link>
-    </el-menu-item>
-   </template>
-   </el-menu>
+            </router-link>
+        </li>
+    </ul>
 </template>
 <script setup>
-import { watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-const route = useRoute();
-const router = useRouter();
-const activeIndex = ref(route.name);
-router.beforeEach((to)=>{
-    activeIndex.value = to.name;
-})
+import { useRoute } from 'vue-router';
 
+const route = useRoute();
+const menu = ref(null);
+const handleClick = (index) => {
+    let list = menu.value.children;
+    for(let i = 0; i < list.length; i++){
+        list[i].classList.remove('active');
+    }
+    menu.value.children[index].classList.add('active');
+};
 const leftList = ref([
     {
         name:'首页',
@@ -41,14 +40,27 @@ const leftList = ref([
         name:'不公平性分析',
         link:"/unfairnessAnalysis",
     },
-])
+]);
+onMounted(() => {
+    let index = leftList.value.findIndex(item => item.name === route.name);
+    handleClick(index);
+});
 </script>
-<style scoped>
-.el-menu--horizontal{
-    border-bottom: none;
+<style lang="scss" scoped>
+.menu{
+    height: 100%;
+    display: flex;
+    &-item{
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
+        height: 100%;
+        cursor: pointer;
+        color: white;
+    }
 }
-.el-menu-item{
-    font-size: large;
+.active{
+    border-bottom: 2px solid white;
 }
 .header-png{
     margin-top: 10px;

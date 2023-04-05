@@ -46,5 +46,6 @@ const logout = ()=>{
 }
 .el-dropdown{
     font-size:large;
+    color: white;
 }
 </style>

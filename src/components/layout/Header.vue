@@ -30,7 +30,7 @@ $--el-font-size-base:large;
     font-family: $font-type;
     width: 100%;
     z-index: 10;
-    background-color: white;
+    background-color: #089bab;
     box-shadow: 0 1px 4px #00000014;
     height: 64px;
     display: flex;
