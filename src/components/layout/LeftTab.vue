@@ -74,9 +74,9 @@ onMounted(() => {
 }
 .header-png{
     margin-top: 5px;
-    height: 55px;
-    width: 55px;
-    border-radius: 27px;
+    height: 54px;
+    width: 54px;
+    border-radius: 50%;
     margin-left: 10px;
 }
 </style>
