@@ -1584,7 +1584,6 @@ const router = useRouter();
 .jss88 {
     width: 100%;
     z-index: 4;
-    min-height: 80px;
     background-color: #F9FAFC;
 }
 
@@ -1605,6 +1604,7 @@ const router = useRouter();
     max-height: 80px;
     justify-content: space-between;
     background-color: #FFFFFF;
+    display: none;
 }
 
 @media (max-width:375px) {
