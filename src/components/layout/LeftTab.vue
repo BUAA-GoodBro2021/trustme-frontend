@@ -8,7 +8,10 @@
             :index="item.name" 
             class="menu-item" 
             @click="handleClick(index)">
-            <router-link :to="item.link">
+            <a v-if="item.name == '相似患者匹配'" :href="item.link" target="_blank">
+                {{ item.name }}
+            </a>
+            <router-link v-else :to="item.link">
                 {{ item.name }}
             </router-link>
         </li>
@@ -32,16 +35,20 @@ const leftList = ref([
         link:"/",
     },
     {
-        name:'超参设置',
-        link:"/upload",
+        name: '相似患者匹配',
+        link:"http://v.ai-care.top/215",
     },
     {
-        name:'电子病历分析',
-        link:"/dataAnalysis",
+        name:'AI模型预测',
+        link:"/predict",
     },
     {
-        name:'不公平性分析',
-        link:"/unfairnessAnalysis",
+        name:'不确定性量化',
+        link:"/uncertainty",
+    },
+    {
+        name:'不公平性挖掘',
+        link:"/unfairness",
     },
 ]);
 onMounted(() => {

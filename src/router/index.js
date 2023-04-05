@@ -16,18 +16,18 @@ const router = createRouter({
           component: ()=>import('../views/HomePage.vue')
         },
         {
-          path: '/upload',
-          name: '超参设置',
-          component: ()=>import('../views/UploadParam.vue')
+          path: '/predict',
+          name: 'AI模型预测',
+          component: ()=>import('../views/Predict.vue')
         },
         {
-          path: '/dataAnalysis',
-          name: '电子病历分析',
-          component: ()=>import('../views/DataAnalysis.vue')
+          path: '/uncertainty',
+          name: '不确定性量化',
+          component: ()=>import('../views/Uncertainty.vue')
         },
         {
-          path: '/unfairnessAnalysis',
-          name: '不公平性分析',
+          path: '/unfairness',
+          name: '不公平性挖掘',
           component: ()=>import('../views/UnfairnessAnalysis.vue')
         }
       ]
