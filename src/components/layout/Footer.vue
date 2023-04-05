@@ -4,7 +4,7 @@
                 <p><a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">京ICP备2022007189号-2</a></p>
             </div>
             <div class="footer-text">
-                <p><a target="_blank">Copyright © 2021-2022 Super2021.</a></p>
+                <p><a target="_blank">Copyright © 2021-2023 Super2021.</a></p>
             </div>
             <div class="footer-text">
                 <p><a target="_blank">All Rights Reserved. Super2021 版权所有</a></p>
