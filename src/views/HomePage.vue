@@ -48,11 +48,15 @@
                 <div class="jss193">
                     <div class="jss194">
                         <div class="jss195">
-                            <p class="MuiTypography-root jss130 jss136 jss197 MuiTypography-body2">以知识释放创造力</p>
+                            <p class="MuiTypography-root jss130 jss136 jss197 MuiTypography-body2">可信、可靠、公平</p>
+                            <p class="MuiTypography-root jss130 jss136 jss197 MuiTypography-body2" style="font-size: 36px;">医疗AI辅助诊断平台</p>
                             <p class="MuiTypography-root jss130 jss136 jss199 MuiTypography-body2">
-                                从个人项目到团队协作，构建更强大的管理平台</p><a
+                                面向医生：提高诊断效率，决策负责可靠，减小误诊率，促进医疗公平</p>
+                            <p class="MuiTypography-root jss130 jss136 jss199 MuiTypography-body2">
+                                面向患者：更理解医生的决策，接受治疗时心里更踏实，提升医患关系</p>
+                            <a
                                 class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-                                href="/upload">
+                                href="/predict">
                                 <div class="jss150 jss202"><button
                                         class="MuiButtonBase-root MuiButton-root jss156 jss158 jss176 jss200 MuiButton-contained"
                                         tabindex="0" type="button"><span
@@ -66,7 +70,7 @@
                         <!-- <div class="jss205"><img src="https://wcdn.wiz.cn/static/images/banner_front_new_bg.svg">
                         </div> -->
                         <div class="jss205"><img
-                                src="https://global-1309504341.cos.ap-beijing.myqcloud.com/inkbook.png"></div>
+                                src="/doctor.png"></div>
 
                     </div>
                 </div>
@@ -75,14 +79,14 @@
 
                 <div class="jss87"></div>
                 <div class="jss206">
-                    <p class="MuiTypography-root jss130 jss136 jss207 MuiTypography-body2"> 三大产品套件
+                    <p class="MuiTypography-root jss130 jss136 jss207 MuiTypography-body2"> 四大核心功能
                     </p>
                 </div>
                 <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                    墨书由<strong>文档，原型设计，绘制UML图</strong>三类常用的办公套件 加上企业级成熟的<strong>管理系统</strong>，
+                    TrustMe由<strong>相似患者匹配，AI模型预测，不确定性量化，不公平性挖掘</strong>四大核心分析模块组成，
                 </p>
                 <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                    致力于打造面向未来的<strong>多人实时协作</strong>的企业级管理平台
+                    致力于打造面向未来 AI4Science 的<strong>临床医疗数据分析应用框架</strong>
                 </p>
 
 
@@ -225,79 +229,6 @@
                     </div>
                 </div>
 
-
-
-                <!-- <div class="ideas-entry"> -->
-                <!-- <div class="container">
-                    <div class="card">
-                        <div class="imgBx">
-                            <img src="https://photo-bucket-1309504341.cos.ap-beijing.myqcloud.com/inkbook-document.gif"
-                                alt="">
-                        </div>
-                        <div class="content">
-
-                            <h2>文档</h2>
-                            <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                🤔 多人多端同步协作编辑文档
-                            </p>
-                            <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                😊 海量文档模板快速上手使用
-                            </p>
-                            <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                😍 成熟的文档管理中心方便团队协作
-                            </p>
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="imgBx">
-                            <img src="https://photo-bucket-1309504341.cos.ap-beijing.myqcloud.com/inkbook-design.gif"
-                                alt="">
-                        </div>
-                        <div class="content">
-                            <h2>原型设计</h2>
-                            <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                🔥 支持多人在线协作设计原型
-                            </p>
-                            <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                👍 提供丰富的组件素材和原型模板
-                            </p>
-                            <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                ⚡ 支持原型设计在线预览与分享
-                            </p>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="imgBx">
-                            <img src="https://qncdn.aoscdn.com/img/flowchart/png/video.gif?5ba429f5" alt="">
-                        </div>
-                        <div class="content">
-                            <h2>绘制UML图</h2>
-                            <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                🌟 内嵌Drawio开源绘制平台
-                            </p>
-                            <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                🍀 支持随时保存，多端同步
-                            </p>
-                            <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                                🌱 导入导出流畅无损，无格式混乱
-                            </p>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- </div> -->
-
-
-
-                <div class="jss87"></div>
-                <div class="jss87"></div>
-                <div class="jss206">
-                    <p class="MuiTypography-root jss130 jss136 jss207 MuiTypography-body2">不止记录，墨书助你高效协作与知识探索</p>
-                </div>
-
-
-
-
                 <div class="ideas-entry">
                     <div class="jss87"></div>
 
@@ -340,173 +271,14 @@
 
                     <div class="jss87"></div>
                 </div>
-                <div class="jss87"></div>
-
-                <div class="jss216">
-                    <div class="jss217">
-                        <p class="MuiTypography-root jss130 jss136 jss218 MuiTypography-body2">
-                            <strong>多端同步，随时随地记录信息</strong>
-                        </p>
-                        <div class="jss219">
-                            <br>
-                            <br>
-                            <p class="MuiTypography-root jss130 jss136 jss220 MuiTypography-body2">😆 提供网页、手机客户端等多设备版本
-                            </p>
-                            <p class="MuiTypography-root jss130 jss136 jss220 MuiTypography-body2">😁 实时保存编辑信息, 即可同步服务端
-                            </p>
-                        </div>
-                        <br>
-
-                        <div class="jss150 jss223"><button
-                                class="MuiButtonBase-root MuiButton-root jss156 jss158 jss176 jss221 MuiButton-contained"
-                                tabindex="0" type="button"><span class="MuiButton-label"><a
-                                        class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-                                        href="/upload"><span>点击开始</span><svg width="13" height="11"
-                                            viewBox="0 0 13 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M13 5.5C13 5.28349 12.9187 5.09856 12.7561 4.9452L8.55625 0.743572C8.47045 0.662382 8.38013 0.601488 8.28529 0.560893C8.19497 0.520298 8.10239 0.5 8.00755 0.5C7.79079 0.5 7.6124 0.569914 7.47241 0.709743C7.33241 0.845061 7.26241 1.01646 7.26241 1.22395C7.26241 1.33221 7.28273 1.43369 7.32338 1.52842C7.36402 1.61863 7.41822 1.69756 7.48596 1.76522L8.92205 3.21313L11.2455 5.33762L11.5165 4.87754L9.22688 4.74899H1.57224C1.34192 4.74899 1.15451 4.8189 1.01 4.95873C0.870001 5.09856 0.800003 5.27898 0.800003 5.5C0.800003 5.72553 0.870001 5.90821 1.01 6.04804C1.15451 6.18787 1.34192 6.25778 1.57224 6.25778H9.22688L11.5165 6.12246L11.2455 5.67591L8.92205 7.79364L7.48596 9.24154C7.41822 9.3092 7.36402 9.39039 7.32338 9.48511C7.28273 9.57533 7.26241 9.67456 7.26241 9.78281C7.26241 9.9903 7.33241 10.1617 7.47241 10.297C7.6124 10.4323 7.79079 10.5 8.00755 10.5C8.20626 10.5 8.38464 10.4233 8.5427 10.27L12.7561 6.06157C12.9187 5.90821 13 5.72102 13 5.5Z"
-                                                fill="#448AFF"></path>
-                                        </svg>
-                                    </a>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="jss222"><img src="https://wcdn.wiz.cn/wiz-image/function-4.gif"></div>
-                </div>
-
-
-
-
-
-
-
-
-
-                <div class="jss87"></div>
-
-                <div class="ideas-entry">
-                    <div class="ideas-entry-box">
-                        <p class="MuiTypography-root jss130 jss136 jss207 MuiTypography-body2">从模板开始，立即使用</p>
-
-                        <div class="jss87"></div>
-                        <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                            🎁 原型设计提供海量的模板和素材组件, 帮助用户快速搭建原型
-                        </p>
-                        <p class="MuiTypography-root jss130 jss136 jss212 MuiTypography-body2">
-                            🔥 文档编辑提供丰富的文档样式，有利于团队快速进行项目开发
-                        </p>
-
-                        <button
-                            class="MuiButtonBase-root MuiButton-root jss156 jss158 jss176 jss213 MuiButton-contained"
-                            tabindex="0" type="button"><span class="MuiButton-label"><a
-                                    class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
-                                    href="/upload"><span>点击开始</span><svg width="13" height="11"
-                                        viewBox="0 0 13 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M13 5.5C13 5.28349 12.9187 5.09856 12.7561 4.9452L8.55625 0.743572C8.47045 0.662382 8.38013 0.601488 8.28529 0.560893C8.19497 0.520298 8.10239 0.5 8.00755 0.5C7.79079 0.5 7.6124 0.569914 7.47241 0.709743C7.33241 0.845061 7.26241 1.01646 7.26241 1.22395C7.26241 1.33221 7.28273 1.43369 7.32338 1.52842C7.36402 1.61863 7.41822 1.69756 7.48596 1.76522L8.92205 3.21313L11.2455 5.33762L11.5165 4.87754L9.22688 4.74899H1.57224C1.34192 4.74899 1.15451 4.8189 1.01 4.95873C0.870001 5.09856 0.800003 5.27898 0.800003 5.5C0.800003 5.72553 0.870001 5.90821 1.01 6.04804C1.15451 6.18787 1.34192 6.25778 1.57224 6.25778H9.22688L11.5165 6.12246L11.2455 5.67591L8.92205 7.79364L7.48596 9.24154C7.41822 9.3092 7.36402 9.39039 7.32338 9.48511C7.28273 9.57533 7.26241 9.67456 7.26241 9.78281C7.26241 9.9903 7.33241 10.1617 7.47241 10.297C7.6124 10.4323 7.79079 10.5 8.00755 10.5C8.20626 10.5 8.38464 10.4233 8.5427 10.27L12.7561 6.06157C12.9187 5.90821 13 5.72102 13 5.5Z"
-                                            fill="#448AFF"></path>
-                                    </svg>
-                                </a>
-                            </span>
-                        </button>
-
-                        <div class="jss87"></div>
-                        <div class="template-list-box w1440">
-                            <div class="template-list-item"><a
-                                    style="background-image: url(&quot;https://docs.gtimg.com/home/img/template-list/templet-1-a28a75.svg&quot;);"></a><a
-                                    style="background-image: url(&quot;https://docs.gtimg.com/home/img/template-list/templet-2-b90122.svg&quot;);"></a><a
-                                    style="background-image: url(&quot;https://docs.gtimg.com/home/img/template-list/templet-3-d04dc8.svg&quot;);"></a><a
-                                    style="background-image: url(&quot;https://docs.gtimg.com/home/img/template-list/templet-4-f6b3ab.svg&quot;);"></a>
-                            </div>
-                        </div>
-
-
-
-                        <div class="jss87"></div>
-                    </div>
-                </div>
-
-
-
-
-
-
-                <div class="jss87"></div>
-                <div class="jss206">
-                    <p class="MuiTypography-root jss130 jss136 jss207 MuiTypography-body2">更多产品能力，等你来探索</p>
-                </div>
-                <div class="jss87"></div>
-                <div class="jss226">
-                    <div class="jss227">
-                        <div class="jss228">
-                            <div class="jss230"><img src="https://wcdn.wiz.cn/static/images/wiznotex/grid_sync.svg ">
-                            </div>
-                            <p class="MuiTypography-root jss130 jss136 jss231 MuiTypography-body2">多端同步</p>
-                        </div>
-                        <div class="jss228">
-                            <div class="jss230"><img src="https://wcdn.wiz.cn/static/images/wiznotex/grid_search.svg ">
-                            </div>
-                            <p class="MuiTypography-root jss130 jss136 jss231 MuiTypography-body2">搜索</p>
-                        </div>
-                        <!-- <div class="jss228">
-                            <div class="jss230"><img src="https://wcdn.wiz.cn/static/images/wiznotex/grid_cut.svg ">
-                            </div>
-                            <p class="MuiTypography-root jss130 jss136 jss231 MuiTypography-body2">一键剪藏</p>
-                        </div> -->
-                        <!-- <div class="jss228">
-                            <div class="jss230"><img
-                                    src="https://wcdn.wiz.cn/static/images/wiznotex/grid_outlineNote.svg "></div>
-                            <p class="MuiTypography-root jss130 jss136 jss231 MuiTypography-body2">大纲笔记</p>
-                        </div> -->
-                        <div class="jss228">
-                            <div class="jss230"><img
-                                    src="https://wcdn.wiz.cn/static/images/wiznotex/grid_markDown.svg ">
-                            </div>
-                            <p class="MuiTypography-root jss130 jss136 jss231 MuiTypography-body2">Markdown</p>
-                        </div>
-                        <div class="jss228">
-                            <div class="jss230"><img src="https://wcdn.wiz.cn/static/images/wiznotex/grid_share.svg ">
-                            </div>
-                            <p class="MuiTypography-root jss130 jss136 jss231 MuiTypography-body2">分享</p>
-                        </div>
-                        <div class="jss228">
-                            <div class="jss230"><img
-                                    src="https://wcdn.wiz.cn/static/images/wiznotex/grid_teamwork.svg ">
-                            </div>
-                            <p class="MuiTypography-root jss130 jss136 jss231 MuiTypography-body2">协作</p>
-                        </div>
-                        <!-- <div class="jss228">
-                            <div class="jss230"><img
-                                    src="https://wcdn.wiz.cn/static/images/wiznotex/grid_chainNote.svg "></div>
-                            <p class="MuiTypography-root jss130 jss136 jss231 MuiTypography-body2">双链笔记</p>
-                        </div> -->
-                        <!-- <div class="jss228 jss229">
-                            <div class="jss230"></div>
-                            <p class="MuiTypography-root jss130 jss136 jss231 MuiTypography-body2"></p>
-                        </div> -->
-                        <!-- <div class="jss228">
-                            <div class="jss230"><img
-                                    src="https://wcdn.wiz.cn/static/images/wiznotex/grid_writeNote.svg "></div>
-                            <p class="MuiTypography-root jss130 jss136 jss231 MuiTypography-body2">手写笔记</p>
-                        </div> -->
-                        <!-- <div class="jss228">
-                            <div class="jss230"><img
-                                    src="https://wcdn.wiz.cn/static/images/wiznotex/grid_soundNote.svg "></div>
-                            <p class="MuiTypography-root jss130 jss136 jss231 MuiTypography-body2">录音笔记</p>
-                        </div> -->
-                    </div>
-                </div>
-
-
 
                 <div class="jss27 jss62 jss83">
                     <div class="jss84"><img src="https://wcdn.wiz.cn/static/images/wiznotex/banner_left_bg.svg"></div>
                     <div class="jss85"><img src="https://wcdn.wiz.cn/static/images/wiznotex/banner_right_bg.svg"></div>
-                    <p class="MuiTypography-root jss130 jss136 jss86 MuiTypography-body2"><span>即刻体验墨书</span></p>
+                    <p class="MuiTypography-root jss130 jss136 jss86 MuiTypography-body2"><span>即刻体验TrustMe</span></p>
                     <p class="MuiTypography-root jss130 jss136 MuiTypography-body2"><a
                             class="MuiTypography-root MuiLink-root MuiLink-underlineHover jss57 jss60 jss73 MuiTypography-colorPrimary"
-                            href="/upload">
+                            href="/predict">
                             <span>点击开始</span>
                         </a>
                     </p>
@@ -2538,7 +2310,7 @@ const router = useRouter();
 }
 
 .jss195 {
-    width: 396px;
+    width: 50%;
     z-index: 1;
     position: relative;
 }
@@ -2739,18 +2511,15 @@ const router = useRouter();
 }
 
 .jss205 {
-    /* top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0; */
     position: absolute;
-    /* margin-left: 300px; */
-    margin-right: 400px;
+    right: 0;
 }
 
 .jss205 img {
-    height: 300%;
-    max-width: 300%;
+    height: 40%;
+    max-width: 40%;
+    border-radius: 50%;
+    margin-left: 60%;
 }
 
 @media (max-width:800px) {
