@@ -180,7 +180,7 @@ const changeChart2 = (params) => {
       flag = 1;
       chart2.setOption({
          title: {
-            text: '患者各个特征指标重要性大小',
+            text: '患者各个特征指标大小',
             left: 'center',
          },
          color: params.color,
@@ -592,7 +592,8 @@ const initChart2 = () => {
                params[0].name + '<br/>' +
                '<li>' +  '特征重要性: ' +
                params[0].data?.toFixed(2) + '</li>' +
-               '<li>e_local: ' + dataList[0].e_local[params[0].dataIndex] + '</li>'
+               '<li>e_local: ' + dataList[0].e_local[params[0].dataIndex]?.toFixed(2) + '</li>' +
+               '<li>特征值大小: ' + dataList[params[0].dataIndex][params[0].name]?.toFixed(2) + '</li>'
             );
          }
       },
