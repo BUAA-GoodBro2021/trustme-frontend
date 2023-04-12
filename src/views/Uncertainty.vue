@@ -589,8 +589,9 @@ const initChart2 = () => {
          },
          formatter: function (params) {
             return (
-               '<li>' + params[0].name + ': ' +
-               params[0].data + '</li>' +
+               params[0].name + '<br/>' +
+               '<li>' +  '特征重要性: ' +
+               params[0].data?.toFixed(2) + '</li>' +
                '<li>e_local: ' + dataList[0].e_local[params[0].dataIndex] + '</li>'
             );
          }
