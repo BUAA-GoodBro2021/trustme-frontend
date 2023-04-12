@@ -60,15 +60,15 @@ const router = createRouter({
   ]
 })
 router.beforeEach((to,from)=>{
-  const state = useStateStore();
-  if(!state.isAuth&&to.name!="Login"&&to.name!="Register"){
-    ElNotification({
-      title: "很遗憾",
-      message: "请先登录",
-      type: "error",
-      duration: 3000
-    })
-    return{name:"Login"};
-  }
+  // const state = useStateStore();
+  // if(!state.isAuth&&to.name!="Login"&&to.name!="Register"){
+  //   ElNotification({
+  //     title: "很遗憾",
+  //     message: "请先登录",
+  //     type: "error",
+  //     duration: 3000
+  //   })
+  //   return{name:"Login"};
+  // }
 })
 export default router
