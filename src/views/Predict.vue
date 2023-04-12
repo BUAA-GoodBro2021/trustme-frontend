@@ -1,6 +1,6 @@
 <template>
    <div class="main-wrap">
-      <div class="uploader" @click="showTable">
+      <div class="uploader">
          <span class="title">文件上传</span>
          <el-upload ref="uploadRef" drag :auto-upload="false" :on-exceed="handleExceed"
             accept=".xls, .xlsx, .csv" v-model:file-list="fileList" :on-change="handleChange">
@@ -19,7 +19,7 @@
                 提交
             </snake-btn>
          </div>
-         <div class="more-arrow">
+         <div class="more-arrow" @click="showTable">
             <el-icon v-if="!isShow"><ArrowDownBold /></el-icon>
             <el-icon v-else><ArrowUpBold /></el-icon>
          </div>
@@ -108,7 +108,7 @@
 </template>
 <script setup>
 import { UploadFilled } from '@element-plus/icons-vue'
-import { ParamUpload } from '../api/welcome'
+import { Uncertain } from "../api/uncertainty.js"
 import SnakeBtn from '../components/basic/SnakeBtn.vue';
 
 const uploadRef = ref('uploadRef')
@@ -176,7 +176,7 @@ delta_bin_nums = 3
  */
 
 const submitForm = () => {
-   // console.log(fileList)
+   console.log(fileList.value[0])
    if (!fileList.value || fileList.value.length != 1) {
       console.log('请上传文件！')
       return
