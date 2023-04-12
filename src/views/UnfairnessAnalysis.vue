@@ -48,7 +48,6 @@ const genarrList = (from, to, step) => {
 }
 const gendataSeries = (metric, isOrig) => {
    let metricR = isOrig ? metric.orig_val_metrics : metric.transf_val_metrics;
-   console.log("ind", isOrig ? resList.orig_lr_orig_best_ind : resList.transf_best_ind)
    let temp = Object.entries(metricR).map(([key, value], index) => {
       if (value && value.length) {
          return {
@@ -78,11 +77,9 @@ const gendataSeries = (metric, isOrig) => {
          }
       }
    })
-   console.log(temp);
    return temp;
 }
 function handlelegendChange(params, chartIndex) {
-   console.log("legend", params);
    let selected = {};
    Object.keys(params.selected).forEach((key) => {
       if (key != params.name) {
@@ -139,7 +136,6 @@ function handleMouseOver(params, chartIndex) {
    if (!params.seriesIndex) return;
    let data = barDataList.unfairness_metric_every_feature[params.seriesIndex - 1];
    data = data.map((item) => {
-      console.log("item", item);
       return Object.values(item);
    });
    chart3.setOption({
@@ -219,7 +215,6 @@ const initChart1 = () => {
       },
       tooltip: {
          formatter: function (params) {
-            console.log("tooltip", params);
             return (
                '<li>threshold : ' + params.name + '</li>' +
                '<li>' + params.seriesName + ' : ' + params.value.toFixed(2) + '</li>'
@@ -349,7 +344,6 @@ const initChart3 = () => {
       ],
       tooltip: {
          formatter: function (params) {
-            console.log("tooltip", params);
             return (
                params.name + '<br/>' +
                '<li>unfairness value : ' + params.value.toFixed(2) + '</li>'

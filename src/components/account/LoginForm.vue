@@ -96,7 +96,6 @@ const login = ()=>{
 }
 // 提交前进行表单验权
 const submit = (formRef)=>{
-	console.log("FORMREF",formRef)
 	formRef.validate((valid)=>{
 		if(valid) login();
 	})

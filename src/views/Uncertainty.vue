@@ -145,11 +145,9 @@ const changeChart2 = (params) => {
       for (let i = 0; i < dataList.length; i++) {
          let temp = dataList[i];
          if (temp.classify_result === 0 && checkConfidence(temp.data_confidence, params.name)) {
-            Object.entries(temp).forEach(([key, value]) => {
-               if (!testList.includes(key)) {
-                  data.push(value);
-               }
-            })
+            for(let index = 0;index<pureDimensions.length;index++){
+               data.push(temp.i_local[index+1]);
+            }
             flag = 1;
             break;
          }
@@ -176,15 +174,13 @@ const changeChart2 = (params) => {
          ],
       })
    } else if (params.componentSubType == "scatter") {
-      Object.entries(dataList[params.data.testset_pid]).forEach(([key, value]) => {
-         if (!testList.includes(key)) {
-            data.push(value);
-            flag = 1;
-         }
-      })
+      for(let index = 0;index<pureDimensions.length;index++){
+         data.push(params.data.i_local[index+1]);
+      }
+      flag = 1;
       chart2.setOption({
          title: {
-            text: '患者各个特征指标大小',
+            text: '患者各个特征指标重要性大小',
             left: 'center',
          },
          color: params.color,
@@ -209,11 +205,9 @@ const changeChart2 = (params) => {
       for (let i = 0; i < dataList.length; i++) {
          let temp = dataList[i];
          if (temp.classify_result === 0 && temp.data_confidence >= from && temp.data_confidence <= to) {
-            Object.entries(temp).forEach(([key, value]) => {
-               if (!testList.includes(key)) {
-                  data.push(value);
-               }
-            })
+            for(let index = 0;index<pureDimensions.length;index++){
+               data.push(temp.i_local[index+1]);
+            }
             flag = 1;
             break;
          }
@@ -247,8 +241,6 @@ const changeChart2 = (params) => {
 
 const initChart1 = () => {
    chart1 = echarts.init(document.querySelector(".chart-1"));
-   console.log("11", dataList.filter((item) => item.classify_result == 1));
-   console.log("22", dataList.filter((item) => item.classify_result == 0));
    scatterOption = {
       color: ECHART_COMMON_COLOR,
       title: {
