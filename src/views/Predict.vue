@@ -110,7 +110,8 @@
 import { UploadFilled } from '@element-plus/icons-vue'
 import { Uncertain } from "../api/uncertainty.js"
 import SnakeBtn from '../components/basic/SnakeBtn.vue';
-
+import { useDataStore } from "../stores/data.js";
+const dataStore = useDataStore();
 const uploadRef = ref('uploadRef')
 const btnColor = ref("#45c3fe")
 const loading = ref(false)
@@ -212,7 +213,7 @@ const submitForm = () => {
 
    
    console.log('formdata中的文件字段为', fileList.value[0].raw)
-   var formdata = paramsToFormData(modelparams.value)
+   let formdata = paramsToFormData(modelparams.value)
    formdata.append('df_train', fileList.value[0].raw)
    // console.log(formdata)
 
@@ -223,7 +224,7 @@ const submitForm = () => {
       type: "warning",
       duration: 3000
    });
-   ParamUpload.UploadData(formdata).then((res) => {
+   Uncertain.UncertainProcess(formdata).then((res) => {
       loading.value = false
       console.log(res)
       if (res.data.result == 0) {
@@ -240,6 +241,7 @@ const submitForm = () => {
             type: "success",
             duration: 3000
          });
+         dataStore.setData(res.data);
       }
    }).catch((err) => {
       loading.value = false

@@ -34,12 +34,11 @@
 </template>
 <script setup>
 import * as echarts from 'echarts';
-import dataList from "../assets/patient_detail_list.json";
-import dimensions from "../assets/dimensions.json";
-import dcDict from "../assets/dc_dict.json";
-import performanceList from "../assets/performance_dict.json";
+import { useDataStore } from '../stores/data';
 import { ECHART_COMMON_COLOR } from "../assets/common.js";
 import SnakeBtn from '../components/basic/SnakeBtn.vue';
+const dataStore = useDataStore();
+const { dataList, dimensions,dcDict,performanceList } = dataStore;
 const testList = [
    "testset_pid",
    "data_confidence",
@@ -54,7 +53,7 @@ const testList = [
 const barColorList = [
    "#e73c56", "#c1c413", "#91cc75"
 ];
-const pureDimensions = dimensions.filter((item) => !testList.includes(item));
+const pureDimensions = dimensions?.filter((item) => !testList.includes(item));
 let chart1 = null;
 let chart2 = null;
 let chart3 = ref([]);
@@ -204,7 +203,9 @@ const changeChart2 = (params) => {
       let to = params.data[1];
       for (let i = 0; i < dataList.length; i++) {
          let temp = dataList[i];
+         console.log(temp, from, to);
          if (temp.classify_result === 0 && temp.data_confidence >= from && temp.data_confidence <= to) {
+            console.log(temp, from, to);
             for(let index = 0;index<pureDimensions.length;index++){
                data.push(temp.i_local[index+1]);
             }
@@ -277,11 +278,11 @@ const initChart1 = () => {
       dataset: [
          {
             dimensions,
-            source: dataList.filter((item) => item.classify_result == 1)
+            source: dataList?.filter((item) => item.classify_result == 1)
          },
          {
             dimensions,
-            source: dataList.filter((item) => item.classify_result == 0)
+            source: dataList?.filter((item) => item.classify_result == 0)
          },
       ],
       series: [
