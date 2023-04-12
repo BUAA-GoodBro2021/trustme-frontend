@@ -213,6 +213,8 @@ const submitForm = () => {
       });
       return
    }
+
+   
    console.log('formdata中的文件字段为', fileList.value[0].raw)
    var formdata = paramsToFormData(modelparams.value)
    formdata.append('df_train', fileList.value[0].raw)
