@@ -13,7 +13,6 @@ import LeftTab from "./LeftTab.vue";
 import UserInfo from "./UserInfo.vue";
 </script>
 <style lang="scss" scoped>
-$font-type: smileySans;
 @font-face {
     font-family: smileySans;
     src: url('../../assets/fonts/SmileySans-Oblique.ttf');
@@ -25,7 +24,7 @@ $font-type: smileySans;
 .header{
     font-size: large;
     font-weight:500;
-    font-family: $font-type;
+    font-family: smileySans;
     width: 100%;
     z-index: 10;
     background-color: #089bab;

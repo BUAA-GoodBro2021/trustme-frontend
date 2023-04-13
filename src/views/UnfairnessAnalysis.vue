@@ -4,6 +4,10 @@
          <div class="chart-1" style="width: 100%;height:100%;">
          </div>
       </div>
+      <div class="main-left-wrap-min">
+         <div class="title">{{ dataIndicator.title }}</div>
+         <div class="text">&nbsp&nbsp&nbsp&nbsp{{ dataIndicator.detail }}</div>
+      </div>
       <div class="main-left-wrap">
          <div class="chart-2" style="width: 100%;height:100%;">
          </div>
@@ -36,6 +40,25 @@ const testList = [
    "i_global",
    "i_local",
 ];
+const dataIndicators =   {
+      "stat_par_diff": {
+         title:"Statistical parity difference（统计平等差异）",
+         detail:"比较不同群体之间的预测结果的概率分布，计算其中相对差异的平均值。统计平等差异等于不同群体之间预测结果的概率分布差异的平均值。因此这个值指标接近0越好。"
+      },
+      "avg_odds_diff":{
+         title:"Average odds difference（平均准确度差异）",
+         detail:"计算不同群体之间的真阳性率和假阳性率之间的平均差异。平均准确度差异等于真阳性率差异与假阳性率差异的平均值。因此这个指标越接近0越好。"
+      },
+      "eq_opp_diff":{
+         title:"Equal opportunity difference（平等机会差异）",
+         detail:"计算不同群体之间真阳性率之间的差异，即每个群体中真正例（Positive）占总正例的比例。平等机会差异等于不同群体之间真阳性率差异的平均值。因此这个值指标接近0越好。"
+      },
+      "theil_ind":{
+         title:"Theil index（Theil指数）",
+         detail:"一种测量收入和财富不平等性的指标，也可用于评估模型在不同群体之间的公平性。计算不同群体之间的预测结果的分布比例，以及总体预测结果的分布比例，然后通过Theil指数计算不平等度量。Theil指数越高，表示群体之间的差异越大，不公平度越高。因此这个指标越接近0越好。"
+      },
+   };
+let dataIndicator = ref(dataIndicators["avg_odds_diff"]);
 const pureDimensions = dimensions.filter((item) => !testList.includes(item));
 const dataLegend = ["bal_acc", "avg_odds_diff", "stat_par_diff", "eq_opp_diff", "theil_ind",];
 const genarrList = (from, to, step) => {
@@ -80,6 +103,8 @@ const gendataSeries = (metric, isOrig) => {
    return temp;
 }
 function handlelegendChange(params, chartIndex) {
+   console.log("params", params)
+   dataIndicator.value = dataIndicators[params.name];
    let selected = {};
    Object.keys(params.selected).forEach((key) => {
       if (key != params.name) {
@@ -365,7 +390,7 @@ onMounted(() => {
    height: 100%;
    padding-top: 20px;
    &-wrap {
-      height: 43.5%;
+      height: 34%;
       width: 90%;
       margin-left: 5%;
       margin-top: 3%;
@@ -377,6 +402,33 @@ onMounted(() => {
       }
       .chart-2 {
          margin: auto;
+      }
+   }
+   &-wrap-min{
+      height: 16%;
+      width: 90%;
+      margin-left: 5%;
+      margin-top: 3%;
+      box-shadow: 0 5px 4px #ffffff14;
+      background-color: white;
+      border-radius: 25px;
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
+      .title{
+         display: flex;
+         justify-content: center;
+         font-family: smileySans;
+         font-size: large;
+         font-weight:500;
+      }
+      .text{
+         width: 90%;
+         margin-left: 5%;
+         line-height: 1.5;
+         font-family: smileySans;
+         font-size: medium;
+         font-weight: 300;
       }
    }
 }
