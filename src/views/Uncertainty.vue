@@ -114,6 +114,9 @@ const handleClick = (index) => {
    if (index === 2) chart1CurrentOption = rectOption;
    chart1.setOption(chart1CurrentOption, true);
 }
+/**
+ * LLLeo's comment: 获取chart-4的数据
+ */
 const geteSource = (arr_i, arr_e) => {
    let temp = [];
    for (let i = 0; i < pureDimensions.length; i++) {
@@ -125,6 +128,9 @@ const geteSource = (arr_i, arr_e) => {
    }
    return temp;
 }
+/** 
+ * LLLeo's comment: 检查置信度区间
+ */
 const checkConfidence = (value, name) => {
    if (name === '低数据置信度区间') {
       return value < dcDict.bin_min_value;
@@ -134,6 +140,19 @@ const checkConfidence = (value, name) => {
       return value > dcDict.bin_max_value;
    }
    return true;
+}
+/** 
+ * LLLeo's comment: 找到置信度最低的dataList对应的index
+ */
+const getminIndex = (dataList)=>{
+   let min = 0;
+   for(let i = 0;i<dataList.length;i++){
+      if(dataList[i].data_confidence<dataList[min].data_confidence){
+         min = i;
+      }
+   }
+   console.log("min",min);
+   return min;
 }
 const changeChart2 = (params) => {
    chart2.showLoading();
@@ -145,7 +164,7 @@ const changeChart2 = (params) => {
          let temp = dataList[i];
          if (temp.classify_result === 0 && checkConfidence(temp.data_confidence, params.name)) {
             for(let index = 0;index<pureDimensions.length;index++){
-               data.push(temp.i_local[index+1]);
+               data.push(temp.i_local[index]);
             }
             flag = 1;
             break;
@@ -174,7 +193,7 @@ const changeChart2 = (params) => {
       })
    } else if (params.componentSubType == "scatter") {
       for(let index = 0;index<pureDimensions.length;index++){
-         data.push(params.data.i_local[index+1]);
+         data.push(params.data.i_local[index]);
       }
       flag = 1;
       chart2.setOption({
@@ -207,7 +226,7 @@ const changeChart2 = (params) => {
          if (temp.classify_result === 0 && temp.data_confidence >= from && temp.data_confidence <= to) {
             console.log(temp, from, to);
             for(let index = 0;index<pureDimensions.length;index++){
-               data.push(temp.i_local[index+1]);
+               data.push(temp.i_local[index]);
             }
             flag = 1;
             break;
@@ -238,8 +257,9 @@ const changeChart2 = (params) => {
    if (flag) chart2.hideLoading();
 };
 
-/* LLLeo's comment: 初始化图表 */
-
+/**
+ * LLLeo's comment: 初始化charts
+ */
 const initChart1 = () => {
    chart1 = echarts.init(document.querySelector(".chart-1"));
    scatterOption = {
@@ -577,12 +597,17 @@ const initChart1 = () => {
 /* LLLeo's comment: 生成scatter和bar的对应点数据属性 */
 const initChart2 = () => {
    chart2 = echarts.init(document.querySelector(".chart-2"));
+   let data = [];
+   let minIndex = getminIndex(dataList);
+   for(let index = 0;index<pureDimensions.length;index++){
+         data.push(dataList[minIndex].i_local[index]);
+   }
    let option = {
       title: {
          text: '患者各个特征指标大小',
          left: 'center',
       },
-      color: ECHART_COMMON_COLOR,
+      color: "#73c0de",
       tooltip: {
          trigger: 'axis',
          axisPointer: {
@@ -616,9 +641,6 @@ const initChart2 = () => {
       grid: {
          containLabel: true,
       },
-      dataset: {
-         source: [],
-      },
       xAxis: {
          type: 'value',
       },
@@ -629,7 +651,7 @@ const initChart2 = () => {
       series: [
          {
             type: 'bar',
-            data: [],
+            data,
          }
       ]
    };
