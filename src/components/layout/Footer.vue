@@ -12,7 +12,6 @@
     </div>
 </template>
 <style scoped lang="scss">
-$font-type: smileySans;
 .footer{
     height:16px;
     display:flex;
@@ -23,7 +22,7 @@ $font-type: smileySans;
     &-text{
         color:gray;
         font-size: 12px;
-        font-family: $font-type;
+        font-family: smileySans;
     }
 }
 </style>

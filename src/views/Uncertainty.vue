@@ -48,7 +48,7 @@
          </div>
          <div class="judge">
             <div class="judge-title" >
-            AI医学建议
+            AI建议观察以下特征
             </div>
             <div class="judge-text">
                <span v-if="aiAdvises.length==0">
@@ -228,7 +228,6 @@ const getminIndex = (dataList)=>{
          min = i;
       }
    }
-   console.log("min",min);
    return min;
 };
 const changeChart2 = (params) => {
@@ -264,8 +263,6 @@ const changeChart2 = (params) => {
          ],
       })
    } else if (params.componentSubType == "scatter") {
-      console.log("params",params);
-      console.log("filerdimensions",filterDimensions);
       for(let index = 0;index<filterDimensions.length;index++){
          data.push(params.data.i_local[filterList[index].index]);
       }
@@ -294,9 +291,7 @@ const changeChart2 = (params) => {
       let to = params.data[1];
       for (let i = 0; i < dataList.length; i++) {
          let temp = dataList[i];
-         console.log(temp, from, to);
          if (temp.classify_result === 0 && temp.data_confidence >= from && temp.data_confidence <= to) {
-            console.log(temp, from, to);
             for(let index = 0;index<filterDimensions.length;index++){
                data.push(temp.i_local[filterList[index].index]);
             }
@@ -427,7 +422,6 @@ const initChart1 = () => {
                symbol: ['none', 0, '', ''],
                tooltip:{
                   formatter: function (params) {
-                     console.log("tooltip",params);
                      return (
                         ""
                      );
@@ -727,7 +721,6 @@ const initChart2 = () => {
             type: 'shadow'
          },
          formatter: function (params) {
-            console.log("params",params)
             return (
                params[0].name + '<br/>'
                +

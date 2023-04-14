@@ -866,22 +866,14 @@ const router = useRouter();
 .jss192 {
     background-color: #d1e6ff;
 }
-@font-face {
-    font-family: "smileySans";
-    src: url('../assets/fonts/SmileySans-Oblique.ttf');
-    src: url('../assets/fonts/SmileySans-Oblique.ttf') format('truetype');
-    src: url('../assets/fonts/SmileySans-Oblique.otf.woff2') format('woff2');
-    src: url('../assets/fonts/SmileySans-Oblique.ttf.woff2') format('woff2');
-    src: url('../assets/fonts/SmileySans-Oblique.otf') format('opentype');
-}
 .MuiTypography-root {
     margin: 0;
-    font-family: "smileySans";
+    font-family: smileySans;
 }
 
 .MuiTypography-body2 {
     font-size: 0.875rem;
-    font-family: "smileySans", "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Microsoft Yahei", Arial, sans-serif;
+    font-family: smileySans, "Open Sans", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Microsoft Yahei", Arial, sans-serif;
     font-weight: 400;
     line-height: 1.43;
     letter-spacing: 0.01071em;
