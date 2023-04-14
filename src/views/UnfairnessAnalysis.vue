@@ -1,7 +1,7 @@
 <template>
    <div class="main-left">
       <div class="main-left-wrap">
-         <div class="chart-1" style="width: 100%;height:100%;">
+         <div class="unfair-chart-1" style="width: 100%;height:100%;">
          </div>
       </div>
       <div class="main-left-wrap-min">
@@ -9,13 +9,13 @@
          <div class="text">&nbsp&nbsp&nbsp&nbsp{{ dataIndicator.detail }}</div>
       </div>
       <div class="main-left-wrap">
-         <div class="chart-2" style="width: 100%;height:100%;">
+         <div class="unfair-chart-2" style="width: 100%;height:100%;">
          </div>
       </div>
    </div>
    <div class="main-right">
       <div class="main-right-wrap">
-         <div class="chart-3" style="width: 90%;height:100%;">
+         <div class="unfair-chart-3" style="width: 90%;height:100%;">
          </div>
       </div>
    </div>
@@ -189,7 +189,7 @@ function handleMouseOver(params, chartIndex) {
    });
 }
 const initChart1 = () => {
-   chart1 = echarts.init(document.querySelector('.chart-1'));
+   chart1 = echarts.init(document.querySelector('.unfair-chart-1'));
    let option = {
       title: {
          text: "原始数据不公平性指标",
@@ -253,7 +253,7 @@ const initChart1 = () => {
    chart1.on('mouseover', (params) => handleMouseOver(params, 0));
 }
 const initChart2 = () => {
-   chart2 = echarts.init(document.querySelector('.chart-2'));
+   chart2 = echarts.init(document.querySelector('.unfair-chart-2'));
    let option = {
       title: {
          text: "重定义权重后数据不公平指标",
@@ -317,7 +317,7 @@ const initChart2 = () => {
    chart2.on('mouseover', (params) => handleMouseOver(params, 1));
 }
 const initChart3 = () => {
-   chart3 = echarts.init(document.querySelector('.chart-3'));
+   chart3 = echarts.init(document.querySelector('.unfair-chart-3'));
    let data = barDataList.unfairness_metric_every_feature[1];
    data = data.map((item) => {
       return Object.values(item);
@@ -397,10 +397,10 @@ onMounted(() => {
       box-shadow: 0 5px 4px #ffffff14;
       background-color: white;
       border-radius: 25px;
-      .chart-1 {
+      .unfair-chart-1 {
          margin: auto;
       }
-      .chart-2 {
+      .unfair-chart-2 {
          margin: auto;
       }
    }
