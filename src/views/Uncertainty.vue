@@ -29,6 +29,9 @@
       <div class="main-right-wrap">
          <div class="chart-2" style="width: 90%;height:100%;">
          </div>
+         <div class="chart-2-title" v-show="showTitle">
+            <span>患者各个特征指标大小</span>
+         </div>
       </div>
    </div>
 </template>
@@ -67,7 +70,7 @@ const chart1Titles = ref([
    { title: '数据总览', color: '#c1c413' },
    { title: '频次分析', color: '#16ba79' },
 ]);
-
+const showTitle = ref(false);
 /* LLLeo's comment: 工具函数 */
 
 const checkRange = (value) => {
@@ -131,7 +134,7 @@ const geteSource = (arr_i, arr_e) => {
 /** 
  * LLLeo's comment: 检查置信度区间
  */
-const checkConfidence = (value, name) => {
+const checkConfidenceRange = (value, name) => {
    if (name === '低数据置信度区间') {
       return value < dcDict.bin_min_value;
    } else if (name === '中数据置信度区间') {
@@ -140,6 +143,15 @@ const checkConfidence = (value, name) => {
       return value > dcDict.bin_max_value;
    }
    return true;
+}
+const checkConfidenceColor = (value)=>{
+   if(value<dcDict.bin_min_value){
+      return barColorList[0];
+   }else if(value>dcDict.bin_max_value){
+      return barColorList[2];
+   }else{
+      return barColorList[1];
+   }
 }
 /** 
  * LLLeo's comment: 找到置信度最低的dataList对应的index
@@ -158,11 +170,11 @@ const changeChart2 = (params) => {
    chart2.showLoading();
    let flag = 0;
    let data = [];
-   console.log("params", params);
+   showTitle.value = false;
    if (params.componentSubType == "bar") {
       for (let i = 0; i < dataList.length; i++) {
          let temp = dataList[i];
-         if (temp.classify_result === 0 && checkConfidence(temp.data_confidence, params.name)) {
+         if (temp.classify_result === 0 && checkConfidenceRange(temp.data_confidence, params.name)) {
             for(let index = 0;index<pureDimensions.length;index++){
                data.push(temp.i_local[index]);
             }
@@ -174,6 +186,10 @@ const changeChart2 = (params) => {
          title: {
             text: `${params.name}-预测失败患者综合特征指标`,
             left: 'center',
+            textStyle:{
+               color:"black",
+               fontSize: 20,
+            },
          },
          color: params.color,
          yAxis: {
@@ -196,10 +212,15 @@ const changeChart2 = (params) => {
          data.push(params.data.i_local[index]);
       }
       flag = 1;
+      showTitle.value = true;
       chart2.setOption({
          title: {
-            text: '患者各个特征指标大小',
-            left: 'center',
+            text: '数据置信度：'+params.data.data_confidence?.toFixed(2),
+            left: 20,
+            textStyle:{
+               color:checkConfidenceColor(params.data.data_confidence),
+               fontSize: 40,
+            },
          },
          color: params.color,
          yAxis: {
@@ -236,6 +257,10 @@ const changeChart2 = (params) => {
          title: {
             text: `对应范围内预测失败患者综合特征指标`,
             left: 'center',
+            textStyle:{
+               color:"black",
+               fontSize: 20,
+            },
          },
          color: params.color,
          yAxis: {
@@ -329,6 +354,20 @@ const initChart1 = () => {
                   ],
                   [
                      {
+                        name: "",
+                        xAxis: 0,
+                        yAxis: 0.5
+                     },
+                     {
+                        xAxis: 1,
+                        yAxis: 0.5,
+                        lineStyle: {
+                           color: 'red',
+                        },
+                     },
+                  ],
+                  [
+                     {
                         name: 'HIGH',
                         xAxis: dcDict.bin_max_value,
                         yAxis: 0
@@ -343,6 +382,14 @@ const initChart1 = () => {
                   color: 'gray',
                },
                symbol: ['none', 0, '', ''],
+               tooltip:{
+                  formatter: function (params) {
+                     console.log("tooltip",params);
+                     return (
+                        "TEST"
+                     );
+                  }
+               }
             },
             itemStyle: {
                color: '#45c3fe',
@@ -371,6 +418,20 @@ const initChart1 = () => {
                   ],
                   [
                      {
+                        name: "",
+                        xAxis: 0,
+                        yAxis: 0.5
+                     },
+                     {
+                        xAxis: 1,
+                        yAxis: 0.5,
+                        lineStyle: {
+                           color: 'red',
+                        },
+                     },
+                  ],
+                  [
+                     {
                         name: 'HIGH',
                         xAxis: dcDict.bin_max_value,
                         yAxis: 0
@@ -385,6 +446,20 @@ const initChart1 = () => {
                   color: 'gray',
                },
                symbol: ['none', 0, '', ''],
+               tooltip:{
+                  formatter: function (params) {
+                     const text = {
+                        "LOW": `数据置信度低于最小值<br/>
+                        数据置信度低于最小值<br/>
+                        数据置信度低于最小值<br/>
+                        数据置信度低于最小值<br/>`,
+                        "HIGH": "数据置信度高于最大值\n数据置信度高于最大值\n数据置信度高于最大值\n数据置信度高于最大值\n"
+                     }
+                     return (
+                        text[params.name]
+                     );
+                  }
+               }
             },
             itemStyle: {
                color: '#fe2679',
@@ -600,7 +675,7 @@ const initChart2 = () => {
    let data = [];
    let minIndex = getminIndex(dataList);
    for(let index = 0;index<pureDimensions.length;index++){
-         data.push(dataList[minIndex].i_local[index]);
+      data.push(dataList[minIndex].i_local[index]);
    }
    let option = {
       title: {
@@ -829,6 +904,16 @@ onMounted(() => {
       .chart-2{
          position: absolute;
          top: 2%;
+      }
+      .chart-2-title{
+         position: absolute;
+         bottom: 0;
+         display: flex;
+         justify-content: center;
+         width: 100%;
+         font-size: 20px;
+         font-weight: 600;
+         margin-bottom: 20px;
       }
    }
 }
