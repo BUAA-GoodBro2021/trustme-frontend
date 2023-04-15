@@ -21,9 +21,9 @@ export const getFilerData = (pureDimensions,dataList)=>{
   filterList.sort((a,b)=>{
      return b.feature_importance - a.feature_importance
   });
-  filterList = filterList.slice(0,20).reverse();
+  filterList = filterList.slice(0,30).reverse();
   let filterDimensions = [];
-  for(let i = 0;i<20;i++){
+  for(let i = 0;i<30;i++){
      filterDimensions.push(filterList[i].cn_name);
   }
   return {

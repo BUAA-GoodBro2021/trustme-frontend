@@ -35,6 +35,9 @@
             <span :style="{color:judgeText.color, fontSize:'1.2rem'}">
                当前患者数据置信度为:{{ judgeText.data||"-" }}，
                所属数据置信区间为{{ judgeText.range }}。
+               <template v-if="judgeText.range=='低置信区间'">
+                  数据不确定性高！
+               </template>
             </span>
             <span>
                当前患者风险预测值为{{ judgeText.danger||"-" }}，
@@ -42,7 +45,7 @@
                最终预测结果{{judgeText.isSafe? "正确":"错误"}}。
             </span>
             <span v-if="judgeText.showComment">
-               患者状态不确定性高，请给予关注！
+               预测结果不确定性高，请给予关注！
             </span>
          </div>
          </div>
@@ -63,7 +66,7 @@
          </div>
       </div>
       <div class="main-right-wrap">
-         <div class="chart-2" style="width: 90%;height:100%;">
+         <div class="chart-2" style="width: 90%;height:120%;">
          </div>
       </div>
    </div>
@@ -214,7 +217,7 @@ const checkJudge = (params)=>{
  */
 const checkAdvise = (data)=>{
    aiAdvises.value.length = 0;
-   for(let i = 0;i<data.length&&i<8;i++){
+   for(let i = 0;i<data.length&&i<10;i++){
       if(data[i]<0.1) aiAdvises.value.push(filterDimensions[i]);
    }
 }
@@ -271,7 +274,7 @@ const changeChart2 = (params) => {
       flag = 1;
       chart2.setOption({
          title: {
-            text: "对应患者各特征的置信度",
+            text: "对应患者各特征的重要性(TOP30)",
             left: "center",
          },
          color: params.color,
@@ -711,7 +714,7 @@ const initChart2 = () => {
    }
    let option = {
       title: {
-         text: '患者各个特征指标大小',
+         text: '患者各特征的重要性(TOP30)',
          left: 'center',
       },
       color: "#73c0de",
