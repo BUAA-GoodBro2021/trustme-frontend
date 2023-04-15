@@ -69,8 +69,12 @@ const genarrList = (from, to, step) => {
    arr.push(to.toFixed(2));
    return arr;
 }
+/**
+ * LLLeo's comment: 根据是否为原始数据，生成对应的数据
+ */
 const gendataSeries = (metric, isOrig) => {
-   let metricR = isOrig ? metric.orig_val_metrics : metric.transf_val_metrics;
+   /* LLLeo's comment: TODO: 修改为多标签 */
+   let metricR = isOrig ? metric.orig_unfairness_metric[0].orig_val_metrics : metric.transf_unfairness_metric[0].val_metrics;
    let temp = Object.entries(metricR).map(([key, value], index) => {
       if (value && value.length) {
          return {
@@ -83,7 +87,8 @@ const gendataSeries = (metric, isOrig) => {
                data: [
                   {
                      name: "bal_acc",
-                     xAxis: isOrig ? resList.orig_lr_orig_best_ind : resList.transf_best_ind,
+                     /* LLLeo's comment: TODO: 修改为多标签 */
+                     xAxis: isOrig ? resList.orig_unfairness_metric[0].orig_best_ind : resList.transf_unfairness_metric[0].transf_best_ind,
                      lineStyle: {
                         color: "gray",
                         type: "dashed",
@@ -92,6 +97,9 @@ const gendataSeries = (metric, isOrig) => {
                         formatter: "best bal_acc: 0.{c}",
                         color: "gray",
                         position: "middle",
+                     },
+                     tooltip:{
+                        formatter: "best bal_acc: 0.{c}",
                      }
                   }
                ],
@@ -103,7 +111,6 @@ const gendataSeries = (metric, isOrig) => {
    return temp;
 }
 function handlelegendChange(params, chartIndex) {
-   console.log("params", params)
    dataIndicator.value = dataIndicators[params.name];
    let selected = {};
    Object.keys(params.selected).forEach((key) => {
@@ -151,13 +158,12 @@ function handlelegendChange(params, chartIndex) {
       series: [
          {
             type: "bar",
-            data: data[resList.orig_lr_orig_best_ind],
+            data: data[resList.orig_unfairness_metric[0].orig_best_ind],
          }
       ]
    });
 }
 function handleMouseOver(params, chartIndex) {
-   console.log("mouseover", params, chartIndex);
    if (!params.seriesIndex) return;
    let data = barDataList.unfairness_metric_every_feature[params.seriesIndex - 1];
    data = data.map((item) => {
@@ -188,6 +194,9 @@ function handleMouseOver(params, chartIndex) {
       ]
    });
 }
+/**
+ * LLLeo's comment: 原始数据不公平性指标
+ */
 const initChart1 = () => {
    chart1 = echarts.init(document.querySelector('.unfair-chart-1'));
    let option = {
@@ -252,6 +261,9 @@ const initChart1 = () => {
    chart1.on('legendselectchanged', (params) => handlelegendChange(params, 0));
    chart1.on('mouseover', (params) => handleMouseOver(params, 0));
 }
+/**
+ * LLLeo's comment: 重定义权重后数据不公平指标
+ */
 const initChart2 = () => {
    chart2 = echarts.init(document.querySelector('.unfair-chart-2'));
    let option = {
@@ -316,6 +328,9 @@ const initChart2 = () => {
    chart2.on('legendselectchanged', (params) => handlelegendChange(params, 1));
    chart2.on('mouseover', (params) => handleMouseOver(params, 1));
 }
+/**
+ * LLLeo's comment: 模型精度最高时各特征不公平性指标
+ */
 const initChart3 = () => {
    chart3 = echarts.init(document.querySelector('.unfair-chart-3'));
    let data = barDataList.unfairness_metric_every_feature[1];
@@ -364,7 +379,8 @@ const initChart3 = () => {
       series: [
          {
             type: "bar",
-            data: data[resList.orig_lr_orig_best_ind],
+            /* LLLeo's comment: TODO: 更改为多标签 */
+            data: data[resList.orig_unfairness_metric[0].orig_best_ind],
          }
       ],
       tooltip: {
