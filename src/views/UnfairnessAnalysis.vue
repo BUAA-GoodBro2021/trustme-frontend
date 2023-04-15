@@ -5,8 +5,15 @@
          </div>
       </div>
       <div class="main-left-wrap-min">
-         <div class="title">{{ dataIndicator.title }}</div>
-         <div class="text">&nbsp&nbsp&nbsp&nbsp{{ dataIndicator.detail }}</div>
+         <div class="btns">
+            <SnakeBtn class="btn" v-for="(item,index) in typeList" :key="index" @click="changeIndex(index)">
+               {{ item }}
+            </SnakeBtn>
+         </div>
+         <div class="comment">
+            <div class="title">{{ dataIndicator.title }}</div>
+            <div class="text">&nbsp&nbsp&nbsp&nbsp{{ dataIndicator.detail }}</div>
+         </div>
       </div>
       <div class="main-left-wrap">
          <div class="unfair-chart-2" style="width: 100%;height:100%;">
@@ -22,10 +29,11 @@
 </template>
 <script setup>
 import * as echarts from 'echarts';
-import resList from "../assets/response.json";
+import resList from "../assets/response2.json";
 import { ECHART_COMMON_COLOR } from "../assets/common.js";
 import dimensions from "../assets/dimensions.json";
 import barDataList from "../assets/barResponse.json";
+import SnakeBtn from '../components/basic/SnakeBtn.vue';
 let chart1 = null;
 let chart2 = null;
 let chart3 = null;
@@ -40,6 +48,32 @@ const testList = [
    "i_global",
    "i_local",
 ];
+const getTypeList = (list)=>{
+   let typeList = [];
+   let metric = list.orig_unfairness_metric;
+   for(let i=0;i<metric.length;i++){
+      let type = metric[i].feature_name;
+      typeList.push(type);
+   }
+   return typeList;
+}
+const typeList = getTypeList(resList);
+const activeIndex = ref(0);
+const changeIndex = (index)=>{
+   activeIndex.value = index;
+   chart1.setOption({
+      title:{
+         subtext: typeList[activeIndex.value],
+      },
+      series: gendataSeries(resList, true),
+   });
+   chart2.setOption({
+      title:{
+         subtext: typeList[activeIndex.value],
+      },
+      series: gendataSeries(resList, false),
+   });
+}
 const dataIndicators =   {
       "stat_par_diff": {
          title:"Statistical parity difference（统计平等差异）",
@@ -74,7 +108,7 @@ const genarrList = (from, to, step) => {
  */
 const gendataSeries = (metric, isOrig) => {
    /* LLLeo's comment: TODO: 修改为多标签 */
-   let metricR = isOrig ? metric.orig_unfairness_metric[0].orig_val_metrics : metric.transf_unfairness_metric[0].val_metrics;
+   let metricR = isOrig ? metric.orig_unfairness_metric[activeIndex.value].orig_val_metrics : metric.transf_unfairness_metric[activeIndex.value].val_metrics;
    let temp = Object.entries(metricR).map(([key, value], index) => {
       if (value && value.length) {
          return {
@@ -88,7 +122,7 @@ const gendataSeries = (metric, isOrig) => {
                   {
                      name: "bal_acc",
                      /* LLLeo's comment: TODO: 修改为多标签 */
-                     xAxis: isOrig ? resList.orig_unfairness_metric[0].orig_best_ind : resList.transf_unfairness_metric[0].transf_best_ind,
+                     xAxis: isOrig ? resList.orig_unfairness_metric[activeIndex.value].orig_best_ind : resList.transf_unfairness_metric[activeIndex.value].transf_best_ind,
                      lineStyle: {
                         color: "gray",
                         type: "dashed",
@@ -158,7 +192,7 @@ function handlelegendChange(params, chartIndex) {
       series: [
          {
             type: "bar",
-            data: data[resList.orig_unfairness_metric[0].orig_best_ind],
+            data: data[resList.orig_unfairness_metric[activeIndex.value].orig_best_ind],
          }
       ]
    });
@@ -203,7 +237,7 @@ const initChart1 = () => {
       title: {
          text: "原始数据不公平性指标",
          left: "center",
-         subtext: "Age"
+         subtext: typeList[activeIndex.value],
       },
       color: ECHART_COMMON_COLOR,
       toolbox: {
@@ -270,7 +304,7 @@ const initChart2 = () => {
       title: {
          text: "重定义权重后数据不公平指标",
          left: "center",
-         subtext: "Age"
+         subtext: typeList[activeIndex.value],
       },
       color: ECHART_COMMON_COLOR,
       toolbox: {
@@ -380,7 +414,7 @@ const initChart3 = () => {
          {
             type: "bar",
             /* LLLeo's comment: TODO: 更改为多标签 */
-            data: data[resList.orig_unfairness_metric[0].orig_best_ind],
+            data: data[resList.orig_unfairness_metric[activeIndex.value].orig_best_ind],
          }
       ],
       tooltip: {
@@ -421,17 +455,29 @@ onMounted(() => {
       }
    }
    &-wrap-min{
-      height: 16%;
+      height: 19%;
       width: 90%;
       margin-left: 5%;
-      margin-top: 3%;
       box-shadow: 0 5px 4px #ffffff14;
-      background-color: white;
-      border-radius: 25px;
       display: flex;
       justify-content: space-around;
       flex-direction: column;
-      .title{
+      .btns{
+         display: flex;
+         justify-content: space-around;
+         overflow-x: auto;
+         .btn{
+            min-width: 5rem;
+         }
+      }
+      .comment{
+         background-color: white;
+         border-radius: 25px;
+         min-height: 60%;
+         display: flex;
+         justify-content: space-around;
+         flex-direction: column;
+         .title{
          display: flex;
          justify-content: center;
          font-family: smileySans;
@@ -445,6 +491,7 @@ onMounted(() => {
          font-family: smileySans;
          font-size: medium;
          font-weight: 300;
+      }
       }
    }
 }
