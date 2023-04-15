@@ -1,19 +1,20 @@
 <template>
    <div class="main-left">
       <div class="main-left-wrap">
+         <el-select v-model="activeIndex" @change="changeIndex" class="select">
+            <el-option
+            v-for="(item, index) in typeList"
+            :key="index"
+            :label="item"
+            :value="index"
+            />
+         </el-select>
          <div class="unfair-chart-1" style="width: 100%;height:100%;">
          </div>
       </div>
       <div class="main-left-wrap-min">
-         <div class="btns">
-            <SnakeBtn class="btn" v-for="(item,index) in typeList" :key="index" @click="changeIndex(index)">
-               {{ item }}
-            </SnakeBtn>
-         </div>
-         <div class="comment">
             <div class="title">{{ dataIndicator.title }}</div>
             <div class="text">&nbsp&nbsp&nbsp&nbsp{{ dataIndicator.detail }}</div>
-         </div>
       </div>
       <div class="main-left-wrap">
          <div class="unfair-chart-2" style="width: 100%;height:100%;">
@@ -22,7 +23,21 @@
    </div>
    <div class="main-right">
       <div class="main-right-wrap">
-         <div class="unfair-chart-3" style="width: 90%;height:100%;">
+         <div class="comment">
+            <div class="comment-title">
+               所有指标下均需重点关注：
+            </div>
+               <button v-for="(item) in topKeys" class="btn-item">
+                  {{ item }}
+               </button>
+            <div class="comment-title">
+               {{ dataLegendChinese[activeKeyIndex+1] }}指标下需重点关注：
+            </div>
+            <button v-for="(item) in topFeatures[activeKeyIndex]" class="btn-item">
+               {{ item }}
+            </button>
+         </div>
+         <div class="unfair-chart-3" style="width: 90%;height:50%;">
          </div>
       </div>
    </div>
@@ -32,8 +47,7 @@ import * as echarts from 'echarts';
 import resList from "../assets/response2.json";
 import { ECHART_COMMON_COLOR } from "../assets/common.js";
 import dimensions from "../assets/dimensions.json";
-import barDataList from "../assets/barResponse.json";
-import SnakeBtn from '../components/basic/SnakeBtn.vue';
+import barDataList from "../assets/response3.json";
 let chart1 = null;
 let chart2 = null;
 let chart3 = null;
@@ -59,8 +73,7 @@ const getTypeList = (list)=>{
 }
 const typeList = getTypeList(resList);
 const activeIndex = ref(0);
-const changeIndex = (index)=>{
-   activeIndex.value = index;
+const changeIndex = ()=>{
    chart1.setOption({
       title:{
          subtext: typeList[activeIndex.value],
@@ -74,6 +87,8 @@ const changeIndex = (index)=>{
       series: gendataSeries(resList, false),
    });
 }
+const {all_top_keys: topKeys, unfairness_metric_top_features: topFeatures} = barDataList;
+const activeKeyIndex = ref(0);
 const dataIndicators =   {
       "stat_par_diff": {
          title:"Statistical parity difference（统计平等差异）",
@@ -95,6 +110,7 @@ const dataIndicators =   {
 let dataIndicator = ref(dataIndicators["avg_odds_diff"]);
 const pureDimensions = dimensions.filter((item) => !testList.includes(item));
 const dataLegend = ["bal_acc", "avg_odds_diff", "stat_par_diff", "eq_opp_diff", "theil_ind",];
+const dataLegendChinese = ["平均准确度", "平均准确度差异", "统计平等差异", "平等机会差异", "Theil指数",];
 const genarrList = (from, to, step) => {
    let arr = [];
    for (let i = from; i <= to; i += step) {
@@ -145,6 +161,7 @@ const gendataSeries = (metric, isOrig) => {
    return temp;
 }
 function handlelegendChange(params, chartIndex) {
+   activeKeyIndex.value = dataLegend.indexOf(params.name) - 1 < 0 ? 0 : dataLegend.indexOf(params.name) - 1;
    dataIndicator.value = dataIndicators[params.name];
    let selected = {};
    Object.keys(params.selected).forEach((key) => {
@@ -435,6 +452,12 @@ onMounted(() => {
 })
 </script>
 <style lang="scss" scoped>
+.el-select-dropdown__item.selected{
+   color: #76b96b;
+}
+.el-input__wrapper.is_focus{
+   box-shadow: none;
+}
 .main-left {
    width: 50%;
    height: 100%;
@@ -447,6 +470,11 @@ onMounted(() => {
       box-shadow: 0 5px 4px #ffffff14;
       background-color: white;
       border-radius: 25px;
+      position: relative;
+      .select{
+         position: absolute;
+         z-index:114514;
+      }
       .unfair-chart-1 {
          margin: auto;
       }
@@ -455,29 +483,17 @@ onMounted(() => {
       }
    }
    &-wrap-min{
-      height: 19%;
+      height: 16%;
       width: 90%;
+      margin-top: 3%;
       margin-left: 5%;
       box-shadow: 0 5px 4px #ffffff14;
       display: flex;
       justify-content: space-around;
       flex-direction: column;
-      .btns{
-         display: flex;
-         justify-content: space-around;
-         overflow-x: auto;
-         .btn{
-            min-width: 5rem;
-         }
-      }
-      .comment{
-         background-color: white;
-         border-radius: 25px;
-         min-height: 60%;
-         display: flex;
-         justify-content: space-around;
-         flex-direction: column;
-         .title{
+      background-color: white;
+      border-radius: 25px;
+      .title{
          display: flex;
          justify-content: center;
          font-family: smileySans;
@@ -491,7 +507,6 @@ onMounted(() => {
          font-family: smileySans;
          font-size: medium;
          font-weight: 300;
-      }
       }
    }
 }
@@ -507,8 +522,41 @@ onMounted(() => {
       height: 90%;
       width: 90%;
       margin-top: 3%;
-      background-color: white;
-      border-radius: 25px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      .comment{
+         background-color: white;
+         border-radius: 25px;
+         height: 45%;
+         width: 90%;
+         &-title{
+            font-family: smileySans;
+            font-size: 1.5rem;
+            margin: 1rem;
+            border-left: 4px solid #089bab;
+            padding-left: 1rem;
+         }
+         .btn-item{
+            display: inline-block;
+            margin-left: 1rem;
+            margin-top: 0.5rem;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            font-family: smileySans;
+            font-size: 1rem;
+            background-color: transparent;
+            border-color: #089bab;
+         }
+         .btn-item:hover{
+            background-color: #089bab;
+            color: white;
+         }
+      }
+      .unfair-chart-3{
+         background-color: white;
+         border-radius: 25px;
+      }
    }
 }
 </style>
